@@ -13,9 +13,6 @@ public static class LogHandler
         return ColorUtility.ToHtmlStringRGB(color);
     } 
 
-
-    // LE SSERAFIM
-    // MIFARESS EL
     // Overrides any normal debug.log with "LogHandler.Log" (switch 'debug' with 'LogHandler')
     public static void Log(object message, [CallerFilePath] string file = "")
     {
