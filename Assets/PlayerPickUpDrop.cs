@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerPickUpDrop : MonoBehaviour
 {
-    [SerializeField] private Transform playerCamTransform;
+    [SerializeField] public Transform playerCamTransform;
     [SerializeField] private LayerMask pickUpMask;
 
     // Start is called before the first frame update
@@ -18,6 +18,9 @@ public class PlayerPickUpDrop : MonoBehaviour
     // We will interact with objects by shooting a ray from the player camera
     void Update()
     {
+
+        //Debug.DrawRay(playerCamTransform.position, playerCamTransform.forward * 4f, Color.green);
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             float pickUpDistance = 4f;
