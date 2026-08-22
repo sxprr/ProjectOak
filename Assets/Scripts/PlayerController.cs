@@ -62,6 +62,8 @@ public class PlayerController : MonoBehaviour
 
         // 5. Apply smooth movement per frame
         playerCapsule.position += moveDirection * currentSpeed * Time.deltaTime;
+
+       
     }
 }
 
