@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+
+public enum EnemyState
+{
+    Patrolling,
+    Detecting,
+    Attack
+}
+
 public class EnemyBehaviour : MonoBehaviour
 {
     [Header("References")]

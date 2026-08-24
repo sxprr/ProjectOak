@@ -15,4 +15,9 @@ public class ObjectTouchable : MonoBehaviour
     {
         
     }
+
+    public void Vanish()
+    {
+        gameObject.SetActive(false);
+    }
 }

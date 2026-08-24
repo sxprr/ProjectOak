@@ -1,16 +1,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Cinemachine;
 
 public class PlayerPickUpDrop : MonoBehaviour
 {
     [SerializeField] public Transform playerCamTransform;
     [SerializeField] private LayerMask pickUpMask;
 
+    public UnityEvent OnInteraction;
+    public CinemachineVirtualCamera vcam;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        // Correct C# instantiation syntax for Vector3
+        playerCamTransform.position = Vector3.zero;
+
+        // Alternative shortcut for zeroing position
+        // playerCamTransform.position = Vector3.zero;
+
+        // Reset rotation as well to prevent the camera from pointing down
+        playerCamTransform.rotation = Quaternion.identity;
+
+        // Reset local transform of the virtual camera child
+        vcam.transform.localPosition = Vector3.zero;
+        vcam.transform.localRotation = Quaternion.identity;
+
     }
 
     // Update is called once per frame
@@ -18,8 +35,11 @@ public class PlayerPickUpDrop : MonoBehaviour
     // We will interact with objects by shooting a ray from the player camera
     void Update()
     {
-        Debug.DrawRay(playerCamTransform.position, playerCamTransform.forward * 4f, Color.green);
-        PickItems();
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            OnInteraction.Invoke();
+        }
     }
 
     public void PickItems()
@@ -41,7 +61,7 @@ public class PlayerPickUpDrop : MonoBehaviour
             if (raycastHit.transform.TryGetComponent(out ObjectTouchable objectTouchable))
             {
                 LogHandler.Log($"{objectTouchable.name}has been collected.");
-                objectTouchable.gameObject.SetActive(false);
+                
             }
             else
             {

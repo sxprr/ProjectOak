@@ -350,7 +350,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 106.21
+    FieldOfView: 106.1
     OrthographicSize: 5
     NearClipPlane: 0.33
     FarClipPlane: 1000
@@ -376,7 +376,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 150670365}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.004446132, y: -0.446723, z: -0.0022200532, w: 0.8946585}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.044403076, y: 0.7223066, z: 0.2722168}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -774,13 +774,13 @@ Transform:
   m_GameObject: {fileID: 337919221}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.2680511, y: -0.35733667, z: -7.702097}
-  m_LocalScale: {x: 0.125, y: 0.125, z: 0.125}
+  m_LocalPosition: {x: 499.4556, y: 1.1413066, z: 205.18321}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4720068959464534700}
   - {fileID: 74934855}
-  m_Father: {fileID: 2078892820}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &349404019
 GameObject:
@@ -1931,6 +1931,17 @@ MonoBehaviour:
   Music: {fileID: 0}
   transition: {fileID: 0}
   SceneTransitionTime: 1
+--- !u!114 &2008051028 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 977838683251468643, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
+  m_PrefabInstance: {fileID: 1695516572942816554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a96408b9b449604482c46688ce004e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2028186945
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,8 +2124,7 @@ Transform:
   m_LocalPosition: {x: 509.6, y: 4, z: 266.8}
   m_LocalScale: {x: 8, y: 8, z: 8}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 337919222}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2078892821
@@ -2428,6 +2438,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 401819965801851964, guid: 3daeaaa94e56110499dd96d5e52c11df, type: 3}
   m_PrefabInstance: {fileID: 663725840206046682}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &663725840206046684 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 566977373598630490, guid: 3daeaaa94e56110499dd96d5e52c11df, type: 3}
+  m_PrefabInstance: {fileID: 663725840206046682}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f04ab1cbdcd49dc4cac5c1500627e4a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1079774521700380378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2548,7 +2569,7 @@ Transform:
   m_GameObject: {fileID: 8322810081186023293}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.044403076, y: 0.7223065, z: 0.2722168}
+  m_LocalPosition: {x: -0.044403076, y: 0.7223066, z: 0.2722168}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2613,7 +2634,7 @@ Camera:
     height: 1
   near clip plane: 0.33
   far clip plane: 1000
-  field of view: 106.21
+  field of view: 106.1
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -2798,6 +2819,57 @@ MonoBehaviour:
   pickUpMask:
     serializedVersion: 2
     m_Bits: 64
+  OnInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8978689216591545607}
+        m_TargetAssemblyTypeName: PlayerPickUpDrop, Assembly-CSharp
+        m_MethodName: PickItems
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 663725840206046684}
+        m_TargetAssemblyTypeName: SoundManager, Assembly-CSharp
+        m_MethodName: PlayPickUpSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2008051028}
+        m_TargetAssemblyTypeName: ObjectTouchable, Assembly-CSharp
+        m_MethodName: Vanish
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2078892821}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: GoToNextPatrolPoint
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &8978689216591545608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2819,5 +2891,6 @@ SceneRoots:
   - {fileID: 970906904}
   - {fileID: 734593303}
   - {fileID: 1152478937}
+  - {fileID: 337919222}
   - {fileID: 2078892820}
   - {fileID: 1695516572942816554}

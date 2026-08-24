@@ -15,4 +15,9 @@ public class SoundManager : MonoBehaviour
     {
         
     }
+
+    public void PlayPickUpSound()
+    {
+
+    }
 }
