@@ -64,7 +64,7 @@ public class MenuFunctionality : MonoBehaviour
             /*I implemented a temporary fix for Main Menu UI somewhat persisting.
              * I will sort out a proper fix later.
              */
-            Debug.Log($"<color=yellow>The Main Menu is turned OFF.</color>");
+            LogHandler.Log($"<color=yellow>The Main Menu is turned OFF.</color>");
 
             /* 1. Safety Check: If we are in the Main Menu, we don't want to pause.
              * Using buildIndex is fine, but check the .buildIndex property specifically.

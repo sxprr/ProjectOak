@@ -2424,6 +2424,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 566977373598630490, guid: 3daeaaa94e56110499dd96d5e52c11df, type: 3}
+      propertyPath: audioClipList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6302072792945099408, guid: 3daeaaa94e56110499dd96d5e52c11df, type: 3}
       propertyPath: m_Name
       value: Sound Manager
@@ -2666,7 +2670,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sensX: 85
   sensY: 85
-  orientation: {fileID: 2202652720177243189}
+  orientation: {fileID: 1026156436}
   playerCapsule: {fileID: 4720068959464534700}
   moveSpeed: 5
 --- !u!136 &6823464339421137353
@@ -2870,6 +2874,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  vcam: {fileID: 150670366}
 --- !u!114 &8978689216591545608
 MonoBehaviour:
   m_ObjectHideFlags: 0

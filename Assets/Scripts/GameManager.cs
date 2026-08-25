@@ -17,11 +17,6 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-       if(Input.GetKeyDown(KeyCode.E))
-       {
-
-       }
+   
     }
-
-    // The event bus belongs here.
 }
