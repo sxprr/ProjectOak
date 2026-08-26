@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
-    public UnityEvent OnInteraction;
     public UnityEvent OnEnemySight;
     public UnityEvent OnVictoryAchieved;
     public UnityEvent OnPlayerDetection;

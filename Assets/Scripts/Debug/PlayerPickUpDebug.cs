@@ -16,8 +16,7 @@ public class PlayerPickUpDebug : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(_controller.playerCamTransform.position, _controller.playerCamTransform.forward * 4f, Color.green);
-
-        LogHandler.Log($"Player Camera reset to {_controller.playerCamTransform.rotation}");
+        
     }
 
     private void pConsoleMonitoring()

@@ -60,7 +60,8 @@ public class PlayerPickUpDrop : MonoBehaviour
             // Check if the object has the target component
             if (raycastHit.transform.TryGetComponent(out ObjectTouchable objectTouchable))
             {
-                LogHandler.Log($"{objectTouchable.name}has been collected.");
+                LogHandler.Log($"{objectTouchable.name} has been collected.");
+                objectTouchable.Vanish();
                 
             }
             else

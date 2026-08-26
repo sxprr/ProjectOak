@@ -1,24 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ItemManager : MonoBehaviour
 {
-    private int itemCollect = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        itemCollect = 0;
-    }
+    // Lists can grow dynamically using .Add()
+    public List<GameObject> itemCollect = new List<GameObject>();
 
-    // Update is called once per frame
-    void Update()
+    // Pass the target GameObject into the collection method
+
+    // version that doesn't require a reference to the parent object. if whatever parent gameobject has
+    // the script attached, just append it.
+
+    private void Update()
     {
         
     }
 
-    public void ItemCollect()
+    private void Start()
     {
         
     }
+
+    // BUG: This method is subscribed to the 'onVanish' event, but nothing happens!
+    public void ItemCollect(GameObject item)
+    {
+        // Check if the item touched has the required script
+        if (item.TryGetComponent(out ObjectTouchable objectTouchable))
+        {
+            itemCollect.Add(objectTouchable.gameObject);
+
+            // Log output with item count
+            LogHandler.Log($"Added '{objectTouchable.name}' to inventory | Item count: {itemCollect.Count}");
+        }
+    }
+
 }
