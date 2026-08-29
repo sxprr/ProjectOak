@@ -17,20 +17,74 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("References")]
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private Transform player;
+    [SerializeField] private LayerMask obstacleMask; // Add layer mask to ignore non-blocking colliders
 
     [Header("Settings")]
     [SerializeField] private float patrolWaitTime = 2f;
     [SerializeField] private float stopAtDistance = 0.5f;
+    [SerializeField] private float losePlayerTime = 3f;
+    
+   
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float viewAngle = 90f;
-    [SerializeField] private float losePlayerTime = 3f;
 
     private NavMeshAgent _agent;
-    private Animator _animator;
     private EnemyState _state = EnemyState.Patrolling;
     private int _currentPatrolIndex;
     private bool _isWaiting;
     private float _timeSinceLostPlayer;
+
+    private void Awake()
+    {
+        _agent = GetComponent<NavMeshAgent>();
+    }
+
+    private void Start()
+    {
+        GoToNextPatrolPoint();
+    }
+
+    private void Update()
+    {
+        if (player == null) return;
+
+        switch (_state)
+        {
+            case EnemyState.Patrolling:
+                Patrol();
+                if (CanSeePlayer())
+                {
+                    ChangeState(EnemyState.Detecting);
+                }
+                break;
+
+            case EnemyState.Detecting:
+                Detecting();
+                break;
+        }
+    }
+
+    private void ChangeState(EnemyState newState)
+    {
+        _state = newState;
+
+        if (_state == EnemyState.Patrolling)
+        {
+            _agent.isStopped = false;
+            GoToClosestPatrolPoint();
+        }
+    }
+
+    private void Patrol()
+    {
+        if (_isWaiting) return;
+
+        // Check if destination is reached
+        if (!_agent.pathPending && _agent.remainingDistance <= stopAtDistance)
+        {
+            StartCoroutine(WaitAtPatrolPoint());
+        }
+    }
 
     private IEnumerator WaitAtPatrolPoint()
     {
@@ -39,95 +93,30 @@ public class EnemyBehaviour : MonoBehaviour
 
         yield return new WaitForSeconds(patrolWaitTime);
 
-        _agent.isStopped = false;
+        _currentPatrolIndex = (_currentPatrolIndex + 1) % patrolPoints.Length;
         GoToNextPatrolPoint();
+
+        _agent.isStopped = false;
         _isWaiting = false;
     }
 
-    private void Awake()
-    {
-        _agent = GetComponent<NavMeshAgent>();
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        GoToNextPatrolPoint();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        var distanceToPlayer = Vector3.Distance(player.position, transform.position);
-
-        switch (_state)
-        {
-            case EnemyState.Patrolling:
-                Patrol();
-                if (distanceToPlayer <= detectionRange && CanSeePlayer())
-                {
-                    _state = EnemyState.Detecting;
-                }
-                break;
-
-            case EnemyState.Detecting:
-                FollowPlayer();
-                if(!CanSeePlayer())
-                {
-                    _timeSinceLostPlayer += Time.deltaTime;
-                    if(_timeSinceLostPlayer >= losePlayerTime)
-                    {
-                        _state = EnemyState.Patrolling;
-                        GoToClosestPatrolPoint();
-                    }
-                    else
-                    {
-                        // if the enemy spots the player while following him
-                        _timeSinceLostPlayer = 0f;
-                    }
-                    break;
-                }
-                break;
-        }
-
-    }
-
-    void FollowPlayer()
-    {
-
-        _agent.SetDestination(player.position);
-        LogHandler.Log($"Destination set to: {player}");
-    }
-
-    private void Patrol()
-    {
-        if (_isWaiting) return;
-        if(!_agent.pathPending && _agent.remainingDistance <= stopAtDistance)
-        {
-            return;
-        }
-    }
-    public void GoToNextPatrolPoint()
+    private void GoToNextPatrolPoint()
     {
         if (patrolPoints.Length == 0) return;
-
         _agent.SetDestination(patrolPoints[_currentPatrolIndex].position);
-        _currentPatrolIndex = (_currentPatrolIndex + 1) % patrolPoints.Length;
-
-        LogHandler.Log($"Making way towards Tree No: {_currentPatrolIndex}");
     }
 
-    void GoToClosestPatrolPoint()
+    private void GoToClosestPatrolPoint()
     {
         if (patrolPoints.Length == 0) return;
-        var closestIndex = 0;
-        var closestDistance = float.MaxValue;
 
-        for (var i = 0; i < patrolPoints.Length; i++)
+        int closestIndex = 0;
+        float closestDistance = float.MaxValue;
+
+        for (int i = 0; i < patrolPoints.Length; i++)
         {
-            var distance = Vector3.Distance(transform.position, patrolPoints[i].position);
-            if(distance < closestDistance)
+            float distance = Vector3.Distance(transform.position, patrolPoints[i].position);
+            if (distance < closestDistance)
             {
                 closestDistance = distance;
                 closestIndex = i;
@@ -135,33 +124,66 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         _currentPatrolIndex = closestIndex;
-        _agent.SetDestination(patrolPoints[_currentPatrolIndex].position);
+        GoToNextPatrolPoint();
     }
 
-    bool CanSeePlayer()
+    private void Detecting()
     {
-        return IsFacingPlayer() && HasClearPathToPlayer();
+        _agent.SetDestination(player.position);
+
+        if (CanSeePlayer())
+        {
+            _timeSinceLostPlayer = 0f; // Reset search timer while player is in sight
+        }
+        else
+        {
+            _timeSinceLostPlayer += Time.deltaTime;
+            if (_timeSinceLostPlayer >= losePlayerTime)
+            {
+                ChangeState(EnemyState.Patrolling);
+            }
+        }
     }
 
-    bool IsFacingPlayer()
+    private bool CanSeePlayer()
     {
-        //calculate direction to the player.
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        if (distanceToPlayer > detectionRange) return false;
+
+        return IsFacingPlayer() && HasClearPathToPlayer(distanceToPlayer);
+    }
+
+    private bool IsFacingPlayer()
+    {
         Vector3 dirToPlayer = (player.position - transform.position).normalized;
-        var angle = Vector3.Angle(transform.forward, dirToPlayer);
+        float angle = Vector3.Angle(transform.forward, dirToPlayer);
         return angle <= viewAngle / 2f;
     }
 
-    //check if there are any obstacles in between enemy and player
-    bool HasClearPathToPlayer()
+    private bool HasClearPathToPlayer(float distanceToPlayer)
     {
-        var dirToPlayer = player.position - transform.position;
-        
-        //shoot a raycast in the direction to the player to check if the path is clear
-        if(Physics.Raycast(transform.position, dirToPlayer.normalized, out RaycastHit hit, dirToPlayer.magnitude))
+        Vector3 dirToPlayer = (player.position - transform.position).normalized;
+
+        if (Physics.Raycast(transform.position, dirToPlayer, out RaycastHit hit, distanceToPlayer, ~obstacleMask))
         {
             return hit.transform == player;
         }
 
-        return true;
+        return false;
     }
+
+    // Visual Gizmos for easy Scene Debugging
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, detectionRange);
+
+        Vector3 fovLine1 = Quaternion.AngleAxis(viewAngle / 2, Vector3.up) * transform.forward * detectionRange;
+        Vector3 fovLine2 = Quaternion.AngleAxis(-viewAngle / 2, Vector3.up) * transform.forward * detectionRange;
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, fovLine1);
+        Gizmos.DrawRay(transform.position, fovLine2);
+    }
+    
 }
