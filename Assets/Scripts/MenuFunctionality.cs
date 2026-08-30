@@ -1,268 +1,189 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using TMPro;
-
 
 public class MenuFunctionality : MonoBehaviour
 {
-    // re-assign the local level's Game Over UI the moment a new scene finishes loading.
+    public static MenuFunctionality Instance { get; private set; }
 
-    [Header("UI Panels")]
-    public GameObject MainMenu;
-    public GameObject PauseInterface;
-    public GameObject GameOverInterface;
-    public GameObject VictoryInterface; // New UI for winning!
+    [Header("Transition Settings")]
+    [SerializeField] private Animator transitionAnimator;
+    [SerializeField] private float sceneTransitionTime = 1f;
 
+    [Header("Audio")]
+    [SerializeField] private SoundManager musicManager;
 
-    [Header("Music")]
-    public SoundManager Music;
+    [Header("UI Events (Inspector Dynamic Wiring)")]
+    public UnityEvent OnGamePaused;
+    public UnityEvent OnGameResumed;
+    public UnityEvent OnGameOverTriggered;
+    public UnityEvent OnVictoryTriggered;
 
-    [Header("Animator")]
-    public Animator transition;
-
-    public static MenuFunctionality Instance = null;
-
-    [Header("Parameters")]
-    public float SceneTransitionTime = 1f; // Animation float that I can adjust
-    private bool isPaused;
-    public static bool isGameOver;
+    public bool IsPaused { get; private set; }
+    public static bool IsGameOver { get; private set; }
 
     private void Awake()
     {
-        DontDestroyOnLoad(Music);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-        DontDestroyOnLoad(this.gameObject);
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+
+        if (musicManager != null)
+        {
+            DontDestroyOnLoad(musicManager.gameObject);
+        }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private void OnEnable()
     {
-        // Reset the "Game Over" gate so the 'E' button works again
-        MenuFunctionality.isGameOver = false;
-
-        // Optional: Log it so you can see it's working in the console
-        LogHandler.Log("Game State Reset: Ready for another run.");
-
-        isPaused = false;
-        Music.GetComponent<AudioSource>().enabled = true;
-        //DontDestroyOnLoad(Music);
-
-
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
 
-        //exit update if this is happening:
-        if (isGameOver) return;
+    private void Start()
+    {
+        ResetGameState();
+    }
+
+    private void Update()
+    {
+        if (IsGameOver) return;
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            /*I implemented a temporary fix for Main Menu UI somewhat persisting.
-             * I will sort out a proper fix later.
-             */
-            LogHandler.Log($"<color=yellow>The Main Menu is turned OFF.</color>");
+            // Disable pausing in the Main Menu scene (Build Index 0)
+            if (SceneManager.GetActiveScene().buildIndex == 0) return;
 
-            /* 1. Safety Check: If we are in the Main Menu, we don't want to pause.
-             * Using buildIndex is fine, but check the .buildIndex property specifically.
-             */
-
-            if (SceneManager.GetActiveScene().buildIndex == 0)
-            {
-                LogHandler.Log("In Main Menu: Esc disabled.");
-                return; // 'return' exits the function immediately so nothing below runs.
-            }
-
-            // 2. Logic Toggle: If we aren't in the menu, toggle the pause state.
-            // TODO: The main doesn't toggle after two "esc" presses.
-
-            isPaused = !isPaused;
-
-            if (isPaused)
-            {
-                PauseGame();
-            }
-            else
-            {
-                ResumeGame();
-                LogHandler.Log("Game Paused");
-            }
+            TogglePause();
         }
+    }
 
+    public void TogglePause()
+    {
+        if (IsPaused)
+            ResumeGame();
+        else
+            PauseGame();
     }
 
     public void PauseGame()
     {
-        Time.timeScale = 0;
-        isPaused = true; // Correctly sets paused state
+        Time.timeScale = 0f;
+        IsPaused = true;
 
-        // UI Management
-        if (MainMenu != null) MainMenu.SetActive(false);
-        if (PauseInterface != null) PauseInterface.SetActive(true); // Show pause menu
+        SetCursorState(visible: true, locked: false);
+        OnGamePaused?.Invoke();
 
-        // Cursor Management
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-        Debug.Log("<color=yellow>[Pause]</color> Game simulation frozen.");
+        LogHandler.Log("<color=yellow>[Pause]</color> Game paused.");
     }
 
     public void ResumeGame()
     {
-        Time.timeScale = 1;
-        isPaused = false; // FIX: Changed from true to false!
+        Time.timeScale = 1f;
+        IsPaused = false;
 
-        // UI Management
-        if (MainMenu != null) MainMenu.SetActive(false); // KEEP FALSE: You don't want the main menu panel in the middle of gameplay
-        if (PauseInterface != null) PauseInterface.SetActive(false); // Hide pause menu
+        SetCursorState(visible: false, locked: true);
+        OnGameResumed?.Invoke();
 
-        // Cursor Management
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-
-        Debug.Log("<color=green>[Resume]</color> Game simulation restored.");
+        LogHandler.Log("<color=green>[Resume]</color> Game restored.");
     }
 
     public void DisplayGameOver()
     {
-        isGameOver = true;
+        IsGameOver = true;
+        Time.timeScale = 0f;
 
-        // stop time and show results
-        Time.timeScale = 0;
-        GameOverInterface.SetActive(true);
-
-        // unlock the cursor for the player.
-
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-
+        SetCursorState(visible: true, locked: false);
+        OnGameOverTriggered?.Invoke();
     }
 
     public void DisplayVictory()
     {
-        isGameOver = true;
+        IsGameOver = true;
+        Time.timeScale = 0f;
 
-        // stop time and show results
-        Time.timeScale = 0;
-        VictoryInterface.SetActive(true);
-
-        // unlock the cursor for the player.
-
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
-    }
-
-
-    public void Quit()
-    {
-        Application.Quit();
-        LogHandler.Log("The Application has come to an end.");
+        SetCursorState(visible: true, locked: false);
+        OnVictoryTriggered?.Invoke();
     }
 
     public void LoadMainGame()
     {
-        Time.timeScale = 1;
+        Time.timeScale = 1f;
+        StartCoroutine(LoadLevelRoutine(1));
 
-
-        StartCoroutine(LoadLevel(1));
-
-        // Check if the music object actually exists before touching it
-        if (Music != null)
+        if (musicManager != null && musicManager.TryGetComponent(out AudioSource source))
         {
-            AudioSource source = Music.GetComponent<AudioSource>();
-            if (source != null) source.enabled = true;
+            source.enabled = true;
         }
     }
-
-    //co routine for playing transition, then loading level
-    IEnumerator LoadLevel(int levelIndex)
-    {
-        MainMenu.SetActive(false);
-        CanvasGroup canvasGroup = transition.GetComponent<CanvasGroup>();
-
-        // 1. Block clicks so the player can't spam the "Play" button during the fade
-        if (canvasGroup != null) canvasGroup.blocksRaycasts = true;
-
-        if (transition != null)
-        {
-            transition.SetTrigger("Start");
-            transition.Update(-1f);
-        }
-
-
-        // Wait for the animation to cover the screen
-        yield return new WaitForSeconds(SceneTransitionTime);
-        LogHandler.Log("Co-routine for animation has been triggered");
-
-        // 3. HIDE the Main Menu UI elements while the screen is black
-        if (MainMenu != null)
-        {
-            GameOverInterface.SetActive(false);
-            MainMenu.SetActive(false);
-        }
-
-        // Load the actual gameplay scene
-        SceneManager.LoadScene(levelIndex);
-
-        // --- NEW/RESTORED LOGIC FOR THE NEW SCENE ---
-
-        // 4. Tell the persistent animator to fade back to clear/Idle
-        if (transition != null)
-        {
-            LogHandler.Log("The animation trigger has been set to 'End'");
-            transition.SetTrigger("End");
-            transition.Update(-1f);
-        }
-
-        // 6. Now that the level is loaded, deactive the victory menu
-        if (VictoryInterface != null)
-        {
-            // Level Loaded, QTE Panel has been activated.
-            VictoryInterface.SetActive(false);
-            LogHandler.Log("Victory Panel is turned off during transition");
-        }
-
-        // 5. Explicitly ensure your pause screen starts completely turned off in the new scene
-        if (PauseInterface != null)
-        {
-            PauseInterface.SetActive(false);
-        }
-
-        // 7. Make the UI interactive again
-        if (canvasGroup != null) canvasGroup.blocksRaycasts = false;
-        LogHandler.Log("UI should now be interactive again");
-
-    }
-
 
     public void LoadMenu()
     {
-        SceneManager.LoadScene(0);
-        Time.timeScale = 1;
-        Music.GetComponent<AudioSource>().enabled = false;
+        Time.timeScale = 1f;
+        StartCoroutine(LoadLevelRoutine(0));
 
-        LogHandler.Log("Menu Scene has now been loaded");
-
+        if (musicManager != null && musicManager.TryGetComponent(out AudioSource source))
+        {
+            source.enabled = false;
+        }
     }
 
-    // This runs automatically right after Level One finishes loading
+    private IEnumerator LoadLevelRoutine(int levelIndex)
+    {
+        CanvasGroup canvasGroup = transitionAnimator != null ? transitionAnimator.GetComponent<CanvasGroup>() : null;
+        if (canvasGroup != null) canvasGroup.blocksRaycasts = true;
+
+        if (transitionAnimator != null)
+        {
+            transitionAnimator.SetTrigger("Start");
+        }
+
+        yield return new WaitForSecondsRealtime(sceneTransitionTime);
+
+        SceneManager.LoadScene(levelIndex);
+
+        if (transitionAnimator != null)
+        {
+            transitionAnimator.SetTrigger("End");
+        }
+
+        if (canvasGroup != null) canvasGroup.blocksRaycasts = false;
+    }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-
+        ResetGameState();
     }
 
-    // Call this method when the player flunks the QTE or dies
-    public void TriggerGameOver()
+    private void ResetGameState()
     {
+        IsGameOver = false;
+        IsPaused = false;
+        Time.timeScale = 1f;
 
+        bool isMenuScene = SceneManager.GetActiveScene().buildIndex == 0;
+        SetCursorState(visible: isMenuScene, locked: !isMenuScene);
     }
 
+    private void SetCursorState(bool visible, bool locked)
+    {
+        Cursor.visible = visible;
+        Cursor.lockState = locked ? CursorLockMode.Locked : CursorLockMode.None;
+    }
 
-
+    public void Quit()
+    {
+        Application.Quit();
+        LogHandler.Log("Application closed.");
+    }
 }
-
