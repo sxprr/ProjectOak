@@ -9,10 +9,15 @@ public class ItemManager : MonoBehaviour
     // Lists can grow dynamically using .Add()
     public List<GameObject> itemCollect = new List<GameObject>();
 
+    public UnityEvent onQoutaFull;
+    public int requiredItems = 10;
+
     // Pass the target GameObject into the collection method
 
     // version that doesn't require a reference to the parent object. if whatever parent gameobject has
     // the script attached, just append it.
+
+    private int itemNumber;
 
     private void Update()
     {
@@ -21,19 +26,25 @@ public class ItemManager : MonoBehaviour
 
     private void Start()
     {
-        
+        itemNumber = itemCollect.Count();
     }
 
-    // BUG: This method is subscribed to the 'onVanish' event, but nothing happens!
+
     public void ItemCollect(GameObject item)
     {
-        // Check if the item touched has the required script
         if (item.TryGetComponent(out ObjectTouchable objectTouchable))
         {
+            // 1. Add the item first
             itemCollect.Add(objectTouchable.gameObject);
 
-            // Log output with item count
+            // 2. Log output with accurate item count
             LogHandler.Log($"Added '{objectTouchable.name}' to inventory | Item count: {itemCollect.Count}");
+
+            // 3. Check the count AFTER adding
+            if (itemCollect.Count == requiredItems)
+            {
+                onQoutaFull.Invoke();
+            }
         }
     }
 

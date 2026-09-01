@@ -23,7 +23,5 @@ public class ObjectTouchable : MonoBehaviour
     {
         gameObject.SetActive(false);
         onVanish.Invoke();
-
-        LogHandler.Log($"{onVanish} has been invoked.");
     }
 }

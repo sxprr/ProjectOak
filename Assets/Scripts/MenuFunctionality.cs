@@ -40,6 +40,8 @@ public class MenuFunctionality : MonoBehaviour
         }
     }
 
+    
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -64,7 +66,7 @@ public class MenuFunctionality : MonoBehaviour
             // Disable pausing in the Main Menu scene (Build Index 0)
             if (SceneManager.GetActiveScene().buildIndex == 0) return;
 
-            TogglePause();
+            
         }
     }
 
@@ -72,8 +74,10 @@ public class MenuFunctionality : MonoBehaviour
     {
         if (IsPaused)
             ResumeGame();
+            
         else
             PauseGame();
+            
     }
 
     public void PauseGame()
