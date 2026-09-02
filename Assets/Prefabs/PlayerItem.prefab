@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5768297862072520412}
   - component: {fileID: 6180931248795470592}
   - component: {fileID: 3551081395052502508}
-  - component: {fileID: 977838683251468643}
+  - component: {fileID: 6743725393595192913}
   m_Layer: 0
   m_Name: PlayerItem
   m_TagString: Item
@@ -136,7 +136,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &977838683251468643
+--- !u!114 &6743725393595192913
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,9 +145,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7484312895416560860}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a96408b9b449604482c46688ce004e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5c8ee38d61df289489585428e5c533b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   onVanish:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ItemManager, Assembly-CSharp
+        m_MethodName: ItemCollect
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 7484312895416560860}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
