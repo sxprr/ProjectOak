@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-
-
+using UnityEngine.Events;
 
 public enum EnemyState
 {
@@ -23,8 +22,11 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float patrolWaitTime = 2f;
     [SerializeField] private float stopAtDistance = 0.5f;
     [SerializeField] private float losePlayerTime = 3f;
-    
-   
+
+    [Header("Events")]
+    public UnityEvent onPlayerSight;
+    public UnityEvent onPlayerLoss;
+
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float viewAngle = 90f;
 
@@ -130,6 +132,9 @@ public class EnemyBehaviour : MonoBehaviour
     private void Detecting()
     {
         _agent.SetDestination(player.position);
+        onPlayerSight.Invoke();
+
+        LogHandler.Log("PLAYER SPOTTED! I SEE YOU");
 
         if (CanSeePlayer())
         {
@@ -138,9 +143,13 @@ public class EnemyBehaviour : MonoBehaviour
         else
         {
             _timeSinceLostPlayer += Time.deltaTime;
+            onPlayerLoss.Invoke();
+            LogHandler.Log("I LOST THE PLAYER!");
+
             if (_timeSinceLostPlayer >= losePlayerTime)
             {
                 ChangeState(EnemyState.Patrolling);
+                
             }
         }
     }

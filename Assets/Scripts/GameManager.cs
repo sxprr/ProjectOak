@@ -6,8 +6,6 @@ using UnityEngine.Events;
 public class GameManager : MonoBehaviour
 {
     public UnityEvent OnEnemySight;
-    public UnityEvent OnVictoryAchieved;
-    public UnityEvent OnPlayerDetection;
 
     private void Awake()
     {
