@@ -44,6 +44,12 @@ public class PlayerHUD : MonoBehaviour
         {
             detectionUI.size = Mathf.Clamp01(detectionAmount);
         }
+
+        // 3. Check the count AFTER adding
+        if (detectionUI.size == maxDetection)
+        {
+            onCaught.Invoke();
+        }
     }
 
     public void SubtractDetection(float detectionAmount)
