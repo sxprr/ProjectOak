@@ -280,7 +280,7 @@ Transform:
   m_GameObject: {fileID: 74934854}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.04440308, y: 0.8, z: 0.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -458,6 +458,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  rotationSpeed: 50
+  floatSpeed: 2
+  floatHeight: 0.25
 --- !u!1 &98684758 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6235304781109741881, guid: 81449f58058afaf49b4c5885a666d92f, type: 3}
@@ -503,7 +506,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:
-    FieldOfView: 106.1
+    FieldOfView: 107.69
     OrthographicSize: 5
     NearClipPlane: 0.33
     FarClipPlane: 1000
@@ -2776,6 +2779,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  rotationSpeed: 50
+  floatSpeed: 2
+  floatHeight: 0.25
 --- !u!1001 &910774383
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3322,8 +3328,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1024917159}
   - component: {fileID: 1024917162}
-  - component: {fileID: 1024917160}
   - component: {fileID: 1024917163}
+  - component: {fileID: 1024917164}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -3346,28 +3352,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 150670367}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1024917160
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1024917158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 0, z: -10}
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
-  m_AngularDampingMode: 0
-  m_PitchDamping: 0
-  m_YawDamping: 0
-  m_RollDamping: 0
-  m_AngularDamping: 0
 --- !u!114 &1024917162
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -3392,7 +3376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c9beda531928fc40968802117a5d256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RecenterTarget: 0
+  m_RecenterTarget: 2
   m_VerticalAxis:
     Value: 0
     m_SpeedMode: 0
@@ -3442,6 +3426,28 @@ MonoBehaviour:
     m_LegacyHeadingDefinition: -1
     m_LegacyVelocityFilterStrength: -1
   m_ApplyBeforeBody: 0
+--- !u!114 &1024917164
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1024917158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7155796051b734daa718462081dc5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BindingMode: 1
+  m_FollowOffset: {x: 0, y: 0, z: -10}
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_AngularDampingMode: 0
+  m_PitchDamping: 0
+  m_YawDamping: 0
+  m_RollDamping: 0
+  m_AngularDamping: 0
 --- !u!1 &1026156435
 GameObject:
   m_ObjectHideFlags: 0
@@ -3876,6 +3882,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  rotationSpeed: 50
+  floatSpeed: 2
+  floatHeight: 0.25
 --- !u!1 &1152478934
 GameObject:
   m_ObjectHideFlags: 0
@@ -4280,6 +4289,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  rotationSpeed: 50
+  floatSpeed: 2
+  floatHeight: 0.25
 --- !u!1 &1281312865
 GameObject:
   m_ObjectHideFlags: 0
@@ -4739,6 +4751,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  rotationSpeed: 50
+  floatSpeed: 2
+  floatHeight: 0.25
 --- !u!1001 &1495556832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5136,6 +5151,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  rotationSpeed: 50
+  floatSpeed: 2
+  floatHeight: 0.25
 --- !u!1 &1669347599
 GameObject:
   m_ObjectHideFlags: 0
@@ -5910,6 +5928,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  rotationSpeed: 50
+  floatSpeed: 2
+  floatHeight: 0.25
 --- !u!1001 &1924700381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6068,6 +6089,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  rotationSpeed: 50
+  floatSpeed: 2
+  floatHeight: 0.25
 --- !u!1 &2003513430
 GameObject:
   m_ObjectHideFlags: 0
@@ -6452,6 +6476,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  rotationSpeed: 50
+  floatSpeed: 2
+  floatHeight: 0.25
 --- !u!4 &2091219776 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1547568634661156089, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
@@ -7329,7 +7356,7 @@ Transform:
   m_GameObject: {fileID: 8322810081186023293}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.044403076, y: 0.7223066, z: 0.2722168}
+  m_LocalPosition: {x: 0.0000000037252903, y: -0.0776934, z: -0.25778317}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7439,7 +7466,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1403028250383641416, guid: e2f95adae9bdf5d459e3a99397bd4630, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1281312866}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8614484122404989115, guid: e2f95adae9bdf5d459e3a99397bd4630, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5333885981974778266}
   m_SourcePrefab: {fileID: 100100000, guid: e2f95adae9bdf5d459e3a99397bd4630, type: 3}
 --- !u!4 &5333885981974778261 stripped
 Transform:
@@ -7451,6 +7481,33 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8614484122404989115, guid: e2f95adae9bdf5d459e3a99397bd4630, type: 3}
   m_PrefabInstance: {fileID: 5333885981974778260}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5333885981974778266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5333885981974778262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a6a379fc4ec334ea3ed8b5fd5ba429, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onGameFinish:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1853413607}
+        m_TargetAssemblyTypeName: MenuFunctionality, Assembly-CSharp
+        m_MethodName: DisplayVictory
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!20 &6187394471623905661
 Camera:
   m_ObjectHideFlags: 0
@@ -7484,7 +7541,7 @@ Camera:
     height: 1
   near clip plane: 0.33
   far clip plane: 1000
-  field of view: 106.1
+  field of view: 107.69
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -7640,7 +7697,7 @@ GameObject:
   - component: {fileID: 6823464339421137353}
   m_Layer: 0
   m_Name: PlayerCapsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7665,6 +7722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c9e41a55befbd144b56fbc1fa566082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mainCamera: {fileID: 6187394471623905661}
   playerCamTransform: {fileID: 2202652720177243189}
   pickUpMask:
     serializedVersion: 2
@@ -7708,7 +7766,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  vcam: {fileID: 150670366}
 --- !u!114 &8978689216591545608
 MonoBehaviour:
   m_ObjectHideFlags: 0

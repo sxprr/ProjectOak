@@ -6,27 +6,26 @@ using Cinemachine;
 
 public class PlayerPickUpDrop : MonoBehaviour
 {
+    [SerializeField] private Camera mainCamera; // Assign Main Camera in Inspector
+
     [SerializeField] public Transform playerCamTransform;
     [SerializeField] private LayerMask pickUpMask;
 
     public UnityEvent OnInteraction;
-    public CinemachineVirtualCamera vcam;
+    
 
     // Start is called before the first frame update
     void Start()
     {
         // Correct C# instantiation syntax for Vector3
-        playerCamTransform.position = Vector3.zero;
+        //playerCamTransform.position = Vector3.zero;
 
         // Alternative shortcut for zeroing position
         // playerCamTransform.position = Vector3.zero;
 
         // Reset rotation as well to prevent the camera from pointing down
-        playerCamTransform.rotation = Quaternion.identity;
+        //playerCamTransform.rotation = Quaternion.identity;
 
-        // Reset local transform of the virtual camera child
-        vcam.transform.localPosition = Vector3.zero;
-        vcam.transform.localRotation = Quaternion.identity;
 
     }
 
@@ -44,6 +43,9 @@ public class PlayerPickUpDrop : MonoBehaviour
 
     public void PickItems()
     {
+        // Generate a ray projecting directly out from the center of the viewport (X: 0.5, Y: 0.5)
+        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
         float pickUpDistance = 4f;
 
         // Visual debug line: visible in Scene view (and Game view if 'Gizmos' is enabled)
