@@ -8,6 +8,6 @@ public class CameraHolder : MonoBehaviour
 
     private void Update()
     {
-        transform.position = cameraPosition.position;
+        // This is probably what's causing the issue.
     }
 }
