@@ -9,6 +9,8 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private Scrollbar detectionUI;
     [SerializeField] private float maxDetection = 1f;
     [SerializeField] private TextMeshProUGUI itemText;
+    [SerializeField] private GameObject interactionPrompt; // Assign "Press E" UI panel/text here
+    [SerializeField] private TextMeshProUGUI promptText;       // Optional: To dynamically set text
     [SerializeField] private int totalQuota = 10;
     [SerializeField] private int currentItems = 0;
 
@@ -17,10 +19,8 @@ public class PlayerHUD : MonoBehaviour
 
     private void Start()
     {
-
         currentItems = 0;
 
-        // Fallback checks if references aren't assigned via Inspector
         if (detectionUI == null)
         {
             detectionUI = GetComponentInChildren<Scrollbar>();
@@ -30,51 +30,55 @@ public class PlayerHUD : MonoBehaviour
         {
             detectionUI.size = 0f;
         }
+
+        // Hide interaction prompt by default
+        ToggleInteractionPrompt(false);
     }
 
     /// <summary>
-    /// Updates the enemy detection UI scrollbar fill (value between 0.0 and 1.0).
+    /// Shows or hides the interaction UI prompt.
     /// </summary>
-    /// <param name="detectionAmount">Normalized detection amount.</param>
-    public void UpdateDetection(float detectionAmount)
+    public void ToggleInteractionPrompt(bool show, string message = "Press E to Interact")
     {
-        detectionAmount += detectionUI.size;
-
-        if (detectionUI != null)
+        if (interactionPrompt != null)
         {
-            detectionUI.size = Mathf.Clamp01(detectionAmount);
+            interactionPrompt.SetActive(show);
         }
 
-        // 3. Check the count AFTER adding
-        if (detectionUI.size == maxDetection)
+        if (promptText != null && show)
         {
-            onCaught.Invoke();
+            promptText.text = message;
+        }
+    }
+
+    public void UpdateDetection(float detectionAmount)
+    {
+        if (detectionUI != null)
+        {
+            detectionUI.size = Mathf.Clamp01(detectionUI.size + detectionAmount);
+
+            if (detectionUI.size >= maxDetection)
+            {
+                onCaught.Invoke();
+            }
         }
     }
 
     public void SubtractDetection(float detectionAmount)
     {
-        detectionAmount -= detectionUI.size;
-
         if (detectionUI != null)
         {
-            detectionUI.size = Mathf.Clamp01(detectionAmount);
+            detectionUI.size = Mathf.Clamp01(detectionUI.size - detectionAmount);
         }
     }
 
-
-    /// <summary>
-    /// Updates the item quota UI text display.
-    /// </summary>
-    /// <param name="currentItems">Number of items currently collected.</param>
-    /// <param name="totalQuota">Total items required.</param>
-    public void UpdateItemQuota(int Items)
+    public void UpdateItemQuota(int itemsToAdd = 1)
     {
-        Items += currentItems;
+        currentItems += itemsToAdd;
 
         if (itemText != null)
         {
-            itemText.text = $"{++currentItems}/{totalQuota}";
+            itemText.text = $"{currentItems}/{totalQuota}";
         }
     }
 }

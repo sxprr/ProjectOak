@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerPickUpDebug : MonoBehaviour
 {
+    // object reference to PlayerPickUpDrop
     public PlayerPickUpDrop _controller;
 
     [SerializeField] private float rayDistance;
@@ -13,13 +14,10 @@ public class PlayerPickUpDebug : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        LogHandler.Log($"Player Camera reset to {_controller.playerCamTransform.forward}");
 
         LogHandler.Log($"Green Ray is starting at {_controller.playerCamTransform.forward}");
 
-        LogHandler.Log($"This is the blue ray, starting at {transform.position}");
-
-        LogHandler.Log($"Debug ray co-ordinates are: {transform.position} and {transform.forward}");
+        LogHandler.Log($"This is the blue ray, starting at {transform.rotation}");
 
     }
 

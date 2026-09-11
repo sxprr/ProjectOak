@@ -10,9 +10,12 @@ public class PlayerPickUpDrop : MonoBehaviour
 
     [SerializeField] public Transform playerCamTransform;
     [SerializeField] private LayerMask pickUpMask;
+    [SerializeField] private float pickUpDistance = 4f;
+    [SerializeField] private PlayerHUD playerHUD;
 
     public UnityEvent OnInteraction;
-    
+    private ObjectTouchable currentTarget;
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +26,9 @@ public class PlayerPickUpDrop : MonoBehaviour
             mainCamera = Camera.main;
         }
 
+        if (playerHUD == null)
+            playerHUD = FindObjectOfType<PlayerHUD>();
+
         LogHandler.Log($"Player Camera's rotation is currently {mainCamera.transform.rotation}");
 
     }
@@ -32,9 +38,15 @@ public class PlayerPickUpDrop : MonoBehaviour
     // We will interact with objects by shooting a ray from the player camera
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        CheckForInteractable();
+
+        if (Input.GetKeyDown(KeyCode.E) && currentTarget != null)
         {
             OnInteraction.Invoke();
+
+            playerHUD.ToggleInteractionPrompt(false);
+            currentTarget = null;
+
         }
     }
 
@@ -46,26 +58,16 @@ public class PlayerPickUpDrop : MonoBehaviour
             return;
         }
 
-        float pickUpDistance = 4f;
-
         // Shoot from camera center (0.5, 0.5 is screen center, not 0, 0)
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-
-        // define it's direction vector (i think this is where the problem is)
-        Vector3 rayDirection = new Vector3(0f,0f,0f);
-
-        // Show cordinates in the console.
-        LogHandler.Log($"Pickup Raycast origin point: {ray}");
 
         // I think there is an issue with the direction(Vector3)
         bool hasHit = Physics.Raycast(ray,out RaycastHit raycastHit, pickUpDistance, pickUpMask);
 
         // Debug ray now matches the actual raycast
         Color rayColor = hasHit ? Color.green : Color.red;
-        Debug.DrawRay(ray.origin, transform.forward * pickUpDistance, rayColor, 2.0f);
+        Debug.DrawRay(ray.origin, playerCamTransform.forward * pickUpDistance, rayColor, 2.0f);
 
-        // Show co ordinates in console.
-        LogHandler.Log($"GREEN ray origin is: {ray.origin}");
 
         if (hasHit)
         {
@@ -88,5 +90,33 @@ public class PlayerPickUpDrop : MonoBehaviour
             LogHandler.Log("Raycast fired but missed everything within range.");
         }
     }
+
+    private void CheckForInteractable()
+    {
+        if (mainCamera == null) return;
+
+        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+        if (Physics.Raycast(ray, out RaycastHit hit, pickUpDistance, pickUpMask))
+        {
+            if (hit.transform.TryGetComponent(out ObjectTouchable touchable))
+            {
+                if (currentTarget != touchable)
+                {
+                    currentTarget = touchable;
+                    playerHUD.ToggleInteractionPrompt(true, "Press E to Interact");
+                }
+                return;
+            }
+        }
+
+        // Clear target and hide UI if ray hits nothing or non-interactable object
+        if (currentTarget != null)
+        {
+            currentTarget = null;
+            playerHUD.ToggleInteractionPrompt(false);
+        }
+    }
+}
 }
 
