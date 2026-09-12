@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
+    public UnityEvent onStaminaDeplete;
 
     private float xRotation;
     private float yRotation;
@@ -63,6 +65,11 @@ public class PlayerController : MonoBehaviour
         float moveZ = Input.GetAxisRaw("Vertical");
 
         bool isSprinting = Input.GetKey(KeyCode.LeftShift);
+
+        if(isSprinting)
+        {
+            onStaminaDeplete.Invoke();
+        }
 
         // Movement relative to capsule forward/right vectors
         Vector3 moveDirection = (playerCapsule.forward * moveZ + playerCapsule.right * moveX).normalized;

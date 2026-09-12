@@ -42,6 +42,8 @@ public class PlayerPickUpDrop : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E) && currentTarget != null)
         {
+            LogHandler.Log($"CURRENTLY HOVERING OVER {currentTarget}");
+
             OnInteraction.Invoke();
 
             playerHUD.ToggleInteractionPrompt(false);
@@ -118,5 +120,5 @@ public class PlayerPickUpDrop : MonoBehaviour
         }
     }
 }
-}
+
 

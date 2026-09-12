@@ -5,14 +5,19 @@ using UnityEngine.Events;
 
 public class FinishLine : MonoBehaviour
 {
+    [Header("Events")]
     public UnityEvent onGameFinish;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.tag == "Player")
+        // Ensure the colliding object is the player
+        if (other.CompareTag("Player"))
         {
-            onGameFinish.Invoke();
-            LogHandler.Log($"The player tagged as {collision.gameObject.tag} has been touched!");
+            // Optional: Prevent double-triggering if the player collides twice in one frame
+            gameObject.SetActive(false);
+
+            LogHandler.Log($"Player stepped into the victory portal. Triggering finish sequence.");
+            onGameFinish?.Invoke();
         }
     }
 
