@@ -56,6 +56,7 @@ public class EnemyBehaviour : MonoBehaviour
                 Patrol();
                 if (CanSeePlayer())
                 {
+                    LogHandler.Log("Player spotted!");
                     ChangeState(EnemyState.Detecting);
                 }
                 break;

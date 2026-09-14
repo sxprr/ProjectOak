@@ -5,9 +5,6 @@ using UnityEngine.Events;
 
 public class FinishLine : MonoBehaviour
 {
-    [Header("Events")]
-    public UnityEvent onGameFinish;
-
     private void OnTriggerEnter(Collider other)
     {
         // Ensure the colliding object is the player
@@ -17,7 +14,7 @@ public class FinishLine : MonoBehaviour
             gameObject.SetActive(false);
 
             LogHandler.Log($"Player stepped into the victory portal. Triggering finish sequence.");
-            onGameFinish?.Invoke();
+            GameManager.Instance.TriggerVictory();
         }
     }
 

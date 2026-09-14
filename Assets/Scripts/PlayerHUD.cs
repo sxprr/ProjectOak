@@ -8,8 +8,8 @@ public class PlayerHUD : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private Scrollbar detectionUI;
     [SerializeField] private Scrollbar staminaUI;
-    [SerializeField] private float maxDetection = 1f;
     [SerializeField] private GameObject interactionPrompt; // Assign "Press E" UI panel/text here
+    [SerializeField] private Image itemIcon;
 
     [Header("Text References")]
     [SerializeField] private TextMeshProUGUI itemText;
@@ -20,9 +20,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private int totalQuota = 10;
     [SerializeField] private int currentItems = 0;
     [SerializeField] private float staminaPauseTime = 2f;
-
-    [Header("Events")]
-    public UnityEvent onCaught;
+    [SerializeField] private float maxDetection = 1f;
 
     private void Start()
     {
@@ -75,7 +73,8 @@ public class PlayerHUD : MonoBehaviour
 
             if (detectionUI.size >= maxDetection)
             {
-                onCaught.Invoke();
+                LogHandler.Log($"Detection number has reached {detectionUI.size}");
+                GameManager.Instance.TriggerGameOver();
             }
         }
     }
@@ -113,5 +112,10 @@ public class PlayerHUD : MonoBehaviour
         {
             itemText.text = $"{currentItems}/{totalQuota}";
         }
+    }
+
+    public void ChangeItemColourIcon()
+    {
+        itemIcon.color = new Color32(82, 248, 29, 255);
     }
 }
