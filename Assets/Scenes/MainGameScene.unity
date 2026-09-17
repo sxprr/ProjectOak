@@ -6071,6 +6071,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 330975466569417284, guid: b8d6feb54100fb04c86fb3040fbf9c69, type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &365338327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10953,6 +10965,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 330975466569417284, guid: b8d6feb54100fb04c86fb3040fbf9c69, type: 3}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &1643605160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11827,6 +11851,7 @@ GameObject:
   - component: {fileID: 1853413609}
   - component: {fileID: 1853413611}
   - component: {fileID: 1853413610}
+  - component: {fileID: 1853413612}
   m_Layer: 5
   m_Name: UserInterface (Canvas)
   m_TagString: Untagged
@@ -11978,21 +12003,6 @@ MonoBehaviour:
   currentItems: 0
   staminaPauseTime: 2
   maxDetection: 1
-  onCaught:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1853413607}
-        m_TargetAssemblyTypeName: MenuFunctionality, Assembly-CSharp
-        m_MethodName: DisplayGameOver
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!222 &1853413610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12031,6 +12041,21 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1853413612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853413602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3deaa10f069b9ec44818981ff87254d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseInterface: {fileID: 499082898}
+  gameOverInterface: {fileID: 502846642}
+  victoryInterface: {fileID: 944348369}
 --- !u!1 &1916225723 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7484312895416560860, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}

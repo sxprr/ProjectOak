@@ -9,21 +9,44 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    //[Header("Game States")]
     
     public bool IsPaused { get; private set; }
     public bool IsGameOver { get; private set; }
 
-    [Header("UI Events (Inspector Dynamic Wiring)")]
-    public UnityEvent OnGamePaused;
-    public UnityEvent OnGameResumed;
-    public UnityEvent OnGameOverTriggered;
-    public UnityEvent OnVictoryTriggered;
+    // C# Events for code-based UI subscription
+    public event Action OnGamePaused;
+    public event Action OnGameResumed;
+    public event Action OnGameOverTriggered;
+    public event Action OnVictoryTriggered;
+
+    int MainMenuScene = 0;
+    int MainGameScene = 1;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
 
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
+
+    private void Start()
+    {
+        // Check current scene.
+        if(SceneManager.GetActiveScene() ==  SceneManager.GetSceneByBuildIndex(MainMenuScene))
+        {
+            LogHandler.Log($"This is the Main Menu Scene, indexed at {MainMenuScene}");
+        }
+        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(MainMenuScene))
+        {
+            LogHandler.Log($"This is the Main Game Scene, indexd at {MainGameScene}");
+        }
+    }
+
 
     private void OnEnable()
     {
@@ -37,11 +60,14 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+
+
+
         if (IsGameOver) return;
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            // Disable pausing in the Main Menu scene (Build Index 0)
+            // Do not allow pausing in the Main Menu scene (Build Index 0)
             if (SceneManager.GetActiveScene().buildIndex == 0) return;
 
             TogglePause();
@@ -60,23 +86,20 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         IsPaused = true;
-
         SetCursorState(visible: true, locked: false);
-        OnGamePaused?.Invoke();
 
+        OnGamePaused?.Invoke(); // Fires the event to all listening UI
         LogHandler.Log("<color=yellow>[GameManager]</color> Game paused.");
-
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1f;
         IsPaused = false;
-
         SetCursorState(visible: false, locked: true);
-        OnGameResumed?.Invoke();
 
-        LogHandler.Log("<color=green>[GameManager]</color> Game restored.");
+        OnGameResumed?.Invoke(); // Fires the event
+        LogHandler.Log("<color=green>[GameManager]</color> Game resumed.");
     }
 
     public void TriggerGameOver()
@@ -84,11 +107,9 @@ public class GameManager : MonoBehaviour
         if (IsGameOver) return;
         IsGameOver = true;
         Time.timeScale = 0f;
-
         SetCursorState(visible: true, locked: false);
-        OnGameOverTriggered?.Invoke();
 
-        LogHandler.Log("<color=red>[GameManager]</color> Game Over triggered.");
+        OnGameOverTriggered?.Invoke();
     }
 
     public void TriggerVictory()
@@ -96,11 +117,9 @@ public class GameManager : MonoBehaviour
         if (IsGameOver) return;
         IsGameOver = true;
         Time.timeScale = 0f;
-
         SetCursorState(visible: true, locked: false);
-        OnVictoryTriggered?.Invoke();
 
-        LogHandler.Log("<color=cyan>[GameManager]</color> Victory triggered!");
+        OnVictoryTriggered?.Invoke();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -116,6 +135,8 @@ public class GameManager : MonoBehaviour
 
         bool isMenuScene = SceneManager.GetActiveScene().buildIndex == 0;
         SetCursorState(visible: isMenuScene, locked: !isMenuScene);
+
+        LogHandler.Log("The Game Scene has been reset");
     }
 
     private void SetCursorState(bool visible, bool locked)
