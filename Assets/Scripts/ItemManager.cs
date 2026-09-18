@@ -43,6 +43,7 @@ public class ItemManager : MonoBehaviour
             // 3. Check the count AFTER adding
             if (itemCollect.Count == requiredItems)
             {
+                LogHandler.Log("The Finish Line has been activated!");
                 onQoutaFull.Invoke();
             }
         }

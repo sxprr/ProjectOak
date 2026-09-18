@@ -67,6 +67,10 @@ public class PlayerHUD : MonoBehaviour
 
     public void UpdateDetection(float detectionAmount)
     {
+        // Don't update detection UI if the game is paused
+        if (GameManager.Instance.IsPaused)
+            return;
+
         if (detectionUI != null)
         {
             detectionUI.size = Mathf.Clamp01(detectionUI.size + detectionAmount);

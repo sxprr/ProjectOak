@@ -48,6 +48,10 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Update()
     {
+        // Skip all AI logic during pause
+        if (GameManager.Instance.IsPaused)
+            return;
+
         if (player == null) return;
 
         switch (_state)
@@ -132,7 +136,14 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Detecting()
     {
+        // Don't detect while paused
+        if (GameManager.Instance.IsPaused)
+            return;
+
+        // When the player is detected, head to towards thier position
         _agent.SetDestination(player.position);
+
+        //Invoke the "player sighted event"
         onPlayerSight.Invoke();
 
         LogHandler.Log("PLAYER SPOTTED! I SEE YOU");
@@ -143,6 +154,8 @@ public class EnemyBehaviour : MonoBehaviour
         }
         else
         {
+            // when we've lost sight, invoke the 'player lost' event
+
             _timeSinceLostPlayer += Time.deltaTime;
             onPlayerLoss.Invoke();
             LogHandler.Log("I LOST THE PLAYER!");

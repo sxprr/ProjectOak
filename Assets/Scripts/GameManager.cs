@@ -19,9 +19,6 @@ public class GameManager : MonoBehaviour
     public event Action OnGameOverTriggered;
     public event Action OnVictoryTriggered;
 
-    int MainMenuScene = 0;
-    int MainGameScene = 1;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -36,15 +33,12 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        // Check current scene.
-        if(SceneManager.GetActiveScene() ==  SceneManager.GetSceneByBuildIndex(MainMenuScene))
+        // IF WERE IN THE MAIN MENU JUST TURN IT ON, THANKS.
+        if(SceneManager.GetActiveScene() ==  SceneManager.GetSceneByBuildIndex(0))
         {
-            LogHandler.Log($"This is the Main Menu Scene, indexed at {MainMenuScene}");
+            LogHandler.Log($"This is the Main Menu Scene, indexed at {0}");
         }
-        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(MainMenuScene))
-        {
-            LogHandler.Log($"This is the Main Game Scene, indexd at {MainGameScene}");
-        }
+     
     }
 
 

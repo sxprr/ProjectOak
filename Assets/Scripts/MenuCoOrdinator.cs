@@ -36,6 +36,20 @@ public class MenuCoordinator : MonoBehaviour
     private void Update()
     {
 
+        Instance = this;
+
+        // I'M DESPERATE. I WILL JUST HARD CODE THIS FOR NOW.
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
+        {
+            LogHandler.Log($"This is the Main Menu Scene, indexed at {0}, turning on  Menu Panel!");
+
+            if(Input.GetKeyDown(KeyCode.M))
+            {
+                mainMenuPanel.SetActive(true);
+                LogHandler.Log("Menu turned on!");
+
+            }
+        }
     }
 
 
@@ -55,7 +69,7 @@ public class MenuCoordinator : MonoBehaviour
 
     public void LoadMenu()
     {
-
+        mainMenuPanel.SetActive(true);
         LogHandler.Log("Loading into Main Menu Scene");
 
         Time.timeScale = 1f;
