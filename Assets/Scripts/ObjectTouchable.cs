@@ -36,5 +36,7 @@ public class ObjectTouchable : MonoBehaviour
     {
         gameObject.SetActive(false);
         onVanish.Invoke();
+
+
     }
 }

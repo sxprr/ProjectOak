@@ -9,6 +9,8 @@ public class InGameUIManager : MonoBehaviour
 
     private void OnEnable()
     {
+        LogHandler.Log("UI Methods have been subscribed");
+
         // Safely subscribe when the scene loads and this UI spawns
         if (GameManager.Instance != null)
         {
@@ -21,6 +23,8 @@ public class InGameUIManager : MonoBehaviour
 
     private void OnDisable()
     {
+        LogHandler.Log("UI Methods have been unsubscribed");
+
         // Unsubscribe immediately when the scene unloads to prevent memory leaks/null errors
         if (GameManager.Instance != null)
         {

@@ -12,12 +12,22 @@ public class ItemManager : MonoBehaviour
     public UnityEvent onQoutaFull;
     public int requiredItems = 10;
 
-    // Pass the target GameObject into the collection method
+    public static ItemManager Instance { get; private set; }
 
     // version that doesn't require a reference to the parent object. if whatever parent gameobject has
     // the script attached, just append it.
 
     private int itemNumber;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+    }
 
     private void Update()
     {

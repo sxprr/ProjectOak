@@ -52,8 +52,6 @@ public class MenuCoordinator : MonoBehaviour
         }
     }
 
-
-
     public void LoadMainGame()
     {
         LogHandler.Log("Loading into Main Game Scene");
