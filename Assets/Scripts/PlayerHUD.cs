@@ -84,19 +84,11 @@ public class PlayerHUD : MonoBehaviour
     }
 
     // essentially, when it's depleted, there's a two second pause before the float refills
-    public void UpdateStamina(float staminaAmount)
+    public void UpdateStaminaDisplay(float currentStamina, float maxStamina)
     {
-        staminaPauseTime = 0f;
-
         if (staminaUI != null)
         {
-            staminaUI.size = Mathf.Clamp01(staminaUI.size + staminaAmount);
-            
-            // if the player runs out of stamina, start the pause timer.
-            if (staminaUI.size <= 0f)
-            {
-                staminaPauseTime += Time.deltaTime;
-            }
+            staminaUI.size = Mathf.Clamp01(currentStamina / maxStamina);
         }
     }
 
