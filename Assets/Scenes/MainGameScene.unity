@@ -153,13 +153,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 74934854}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0.81}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.80999756}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2202652720177243189}
-  m_Father: {fileID: 337919222}
+  m_Father: {fileID: 4720068959464534700}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &74934856
 MonoBehaviour:
@@ -333,6 +333,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2078892830}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: MultiplyEnemyAgression
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0.55
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -5612,7 +5624,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4720068959464534700}
-  - {fileID: 74934855}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &349404019
@@ -6783,6 +6794,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2078892830}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: MultiplyEnemyAgression
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0.55
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
@@ -7371,6 +7394,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2078892830}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: MultiplyEnemyAgression
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0.55
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
@@ -7676,6 +7711,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2078892830}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: MultiplyEnemyAgression
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0.55
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -8180,6 +8227,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2078892830}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: MultiplyEnemyAgression
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0.55
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
@@ -8414,6 +8473,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2078892830}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: MultiplyEnemyAgression
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0.55
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -8946,6 +9017,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 2078892830}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: MultiplyEnemyAgression
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0.55
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
@@ -9108,6 +9191,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2078892830}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: MultiplyEnemyAgression
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0.55
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -9464,6 +9559,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8755245563372707390, guid: 1b71e45370248d043b892c85e2ac0035, type: 3}
   m_PrefabInstance: {fileID: 642220681753434655}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2078892830 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9216060565296653118, guid: 1b71e45370248d043b892c85e2ac0035, type: 3}
+  m_PrefabInstance: {fileID: 642220681753434655}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9251fbf928928bc4497a503259e1843d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2090192758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9623,6 +9729,18 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
           m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2078892830}
+        m_TargetAssemblyTypeName: EnemyBehaviour, Assembly-CSharp
+        m_MethodName: MultiplyEnemyAgression
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0.55
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -11078,7 +11196,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -11090,7 +11208,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -11103,7 +11221,7 @@ PrefabInstance:
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
-      objectReference: {fileID: 1853413609}
+      objectReference: {fileID: 2078892830}
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
       value: 2
@@ -11122,7 +11240,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: UpdateItemQuota
+      value: MultiplyEnemyAgression
       objectReference: {fileID: 0}
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -11134,7 +11252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: PlayerHUD, Assembly-CSharp
+      value: EnemyBehaviour, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
@@ -11143,6 +11261,10 @@ PrefabInstance:
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_IntArgument
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
+      propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_FloatArgument
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 6743725393595192913, guid: 092573b2e660f4c4e863423c7acb5679, type: 3}
       propertyPath: onVanish.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
@@ -11194,7 +11316,7 @@ Transform:
   m_GameObject: {fileID: 8322810081186023293}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.81}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.80999756}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11356,6 +11478,7 @@ Transform:
   - {fileID: 150670367}
   - {fileID: 507467185}
   - {fileID: 1026156436}
+  - {fileID: 74934855}
   m_Father: {fileID: 337919222}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &5333885981974778260
@@ -11554,11 +11677,12 @@ MonoBehaviour:
   orientation: {fileID: 1026156436}
   playerCapsule: {fileID: 4720068959464534700}
   cameraHolder: {fileID: 74934855}
+  playerNose: {fileID: 445155728}
   moveSpeed: 5
   sprintMultiplier: 2.5
   maxStamina: 100
   staminaDrainRate: 25
-  staminaRegenRate: 15
+  staminaRegenRate: 10
   regenDelay: 2
   playerHUD: {fileID: 1853413609}
 --- !u!136 &6823464339421137353
@@ -11713,8 +11837,8 @@ MonoBehaviour:
   pickUpMask:
     serializedVersion: 2
     m_Bits: 64
-  pickUpDistance: 4
   playerHUD: {fileID: 1853413609}
+  pickUpDistance: 4
   OnInteraction:
     m_PersistentCalls:
       m_Calls:

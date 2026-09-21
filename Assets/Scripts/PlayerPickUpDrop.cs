@@ -6,12 +6,15 @@ using Cinemachine;
 
 public class PlayerPickUpDrop : MonoBehaviour
 {
-    [SerializeField] private Camera mainCamera; // Assign Main Camera in Inspector
 
+    [Header("References")]
+    [SerializeField] private Camera mainCamera; // Assign Main Camera in Inspector
     [SerializeField] public Transform playerCamTransform;
     [SerializeField] private LayerMask pickUpMask;
-    [SerializeField] private float pickUpDistance = 4f;
     [SerializeField] private PlayerHUD playerHUD;
+
+    [Header("Values")]
+    [SerializeField] private float pickUpDistance = 4f;
 
     public UnityEvent OnInteraction;
     private ObjectTouchable currentTarget;

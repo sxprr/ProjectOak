@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public Transform orientation;
     public Transform playerCapsule;
     public Transform cameraHolder;
+    public Transform playerNose;
 
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
@@ -79,6 +80,11 @@ public class PlayerController : MonoBehaviour
         {
             orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
         }
+
+        if(playerNose != null)
+        {
+            playerNose.rotation = Quaternion.Euler(0f, yRotation, 0f);
+        }
     }
 
     private void ManageStamina()
@@ -130,11 +136,13 @@ public class PlayerController : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveZ = Input.GetAxisRaw("Vertical");
 
-        Vector3 moveDirection = (playerCapsule.forward * moveZ + playerCapsule.right * moveX).normalized;
+        Vector3 moveDirection = (playerCapsule.forward * moveZ  +  playerCapsule.right * moveX).normalized;
 
         float currentSpeed = isSprinting ? moveSpeed * sprintMultiplier : moveSpeed;
 
-        playerCapsule.position += moveDirection * currentSpeed * Time.fixedDeltaTime;
+        playerCapsule.position +=  moveDirection * currentSpeed * Time.fixedDeltaTime;
+
+        Debug.Log($"Input - X: {moveX}, Z: {moveZ}");
     }
 }
 

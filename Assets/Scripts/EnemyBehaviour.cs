@@ -208,5 +208,18 @@ public class EnemyBehaviour : MonoBehaviour
         Gizmos.DrawRay(transform.position, fovLine1);
         Gizmos.DrawRay(transform.position, fovLine2);
     }
-    
+
+
+    // multiply parameters by 0.55 with each collection.
+    public void MultiplyEnemyAgression(float AgroMultiplier)
+    {
+        //divide patrolWaitTime by this value, enemy waits less 
+        patrolWaitTime = patrolWaitTime * AgroMultiplier;
+
+        //enemy holds onto player a bit sooner
+        losePlayerTime = losePlayerTime * AgroMultiplier;
+
+        //player can detect you from further out
+        detectionRange = detectionRange * AgroMultiplier;
+    }
 }
