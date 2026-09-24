@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour
         MovePlayer();
     }
 
+    // when you gave it instructions but you still don't know
     private void HandleLook()
     {
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
@@ -66,25 +67,19 @@ public class PlayerController : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        if (cameraHolder != null)
-        {
-            cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        }
-
+        // Rotate parent capsule around Y axis
         if (playerCapsule != null)
         {
             playerCapsule.rotation = Quaternion.Euler(0f, yRotation, 0f);
         }
 
-        if (orientation != null)
+        // Rotate camera locally around X axis (pitch)
+        if (cameraHolder != null)
         {
-            orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
+            cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         }
 
-        if(playerNose != null)
-        {
-            playerNose.rotation = Quaternion.Euler(0f, yRotation, 0f);
-        }
+        // Child objects (orientation, playerNose) inherit playerCapsule's Y rotation automatically
     }
 
     private void ManageStamina()
@@ -144,5 +139,7 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log($"Input - X: {moveX}, Z: {moveZ}");
     }
+
+
 }
 

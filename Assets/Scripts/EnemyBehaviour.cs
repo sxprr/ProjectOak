@@ -18,17 +18,24 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private LayerMask obstacleMask; // Add layer mask to ignore non-blocking colliders
 
-    [Header("Settings")]
+    [Header("Enemy Settings")]
     [SerializeField] private float patrolWaitTime = 2f;
+    [SerializeField] private float minPatrolWaitTime = 0.2f;
     [SerializeField] private float stopAtDistance = 0.5f;
+    [SerializeField] private float maxLostPlayerTime = 15.0f;
     [SerializeField] private float losePlayerTime = 3f;
+    [SerializeField] private float maxDetectionRange = 30.0f;
+    [SerializeField] private float detectionRange = 5f;
+    [SerializeField] private float viewAngle = 90f;
+
+    // I need to multiply this float but I forgot which part is responsible for it's movement.
+    [SerializeField] private float enemyMoveSpeed = 5f;
+
 
     [Header("Events")]
     public UnityEvent onPlayerSight;
     public UnityEvent onPlayerLoss;
 
-    [SerializeField] private float detectionRange = 5f;
-    [SerializeField] private float viewAngle = 90f;
 
     private NavMeshAgent _agent;
     private EnemyState _state = EnemyState.Patrolling;
@@ -39,6 +46,7 @@ public class EnemyBehaviour : MonoBehaviour
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
+        _agent.speed = enemyMoveSpeed;
     }
 
     private void Start()
@@ -209,17 +217,22 @@ public class EnemyBehaviour : MonoBehaviour
         Gizmos.DrawRay(transform.position, fovLine2);
     }
 
-
-    // multiply parameters by 0.55 with each collection.
-    public void MultiplyEnemyAgression(float AgroMultiplier)
+    // Listens to OnItemCollect event
+    public void MultiplyEnemyAggression(float agroMultiplier)
     {
-        //divide patrolWaitTime by this value, enemy waits less 
-        patrolWaitTime = patrolWaitTime * AgroMultiplier;
+        // Decreases wait time (enemy spends less time idling)
+        patrolWaitTime = Mathf.Max(minPatrolWaitTime, patrolWaitTime * agroMultiplier);
+        LogHandler.Log($"Enemy detection decreased to {patrolWaitTime}");
 
-        //enemy holds onto player a bit sooner
-        losePlayerTime = losePlayerTime * AgroMultiplier;
+        // Increases pursuit persistence (enemy hunts longer before giving up)
+        losePlayerTime = Mathf.Min(maxLostPlayerTime, losePlayerTime / agroMultiplier);
+        LogHandler.Log($"Enemy pursuit persistence increase to {losePlayerTime}");
 
-        //player can detect you from further out
-        detectionRange = detectionRange * AgroMultiplier;
+        // Expands sight radius (enemy spots player from further away)
+        detectionRange = Mathf.Min(maxDetectionRange, detectionRange / agroMultiplier);
+        LogHandler.Log($"Enemy detection range increased to {detectionRange}");
+
+        enemyMoveSpeed = enemyMoveSpeed / agroMultiplier;
     }
+
 }
