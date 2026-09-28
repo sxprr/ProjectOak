@@ -274,51 +274,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &552676073
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 552676075}
-  - component: {fileID: 552676074}
-  m_Layer: 0
-  m_Name: UIAnimationManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &552676074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 552676073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 233175ff92be4e34c942b87375ee5342, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  transitionAnimator: {fileID: 0}
---- !u!4 &552676075
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 552676073}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 985.60345, y: 527.2749, z: 303.7218}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &979109564
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,6 +465,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!95 &1688101070 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5908719010589076836, guid: b8d6feb54100fb04c86fb3040fbf9c69, type: 3}
+  m_PrefabInstance: {fileID: 5330379839202586769}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2059604391
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -575,6 +535,67 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33262ca27aa38354eb8c069e5de26de0, type: 3}
+--- !u!1001 &3453286993163889383
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1298308839716900919, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 985.60345
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298308839716900919, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 527.2749
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298308839716900919, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 303.7218
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298308839716900919, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298308839716900919, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298308839716900919, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298308839716900919, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298308839716900919, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298308839716900919, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1298308839716900919, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6263482364105748823, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: m_Name
+      value: UIAnimationManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 7217909416075003716, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: transitionAnimator
+      value: 
+      objectReference: {fileID: 1688101070}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
 --- !u!1001 &5330379839202586769
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -619,6 +640,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4465181669105624634, guid: b8d6feb54100fb04c86fb3040fbf9c69, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4493894693570463793, guid: b8d6feb54100fb04c86fb3040fbf9c69, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -634,6 +659,10 @@ PrefabInstance:
     - target: {fileID: 6408884221133738408, guid: b8d6feb54100fb04c86fb3040fbf9c69, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
       value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 7171846289425364102, guid: b8d6feb54100fb04c86fb3040fbf9c69, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7585952570089587818, guid: b8d6feb54100fb04c86fb3040fbf9c69, type: 3}
       propertyPath: m_Pivot.x
@@ -724,7 +753,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 552676075}
+  - {fileID: 3453286993163889383}
   - {fileID: 2059604391}
   - {fileID: 350159548}
   - {fileID: 979109567}

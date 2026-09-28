@@ -6,6 +6,10 @@ public class MenuCoordinator : MonoBehaviour
 {
     public static MenuCoordinator Instance { get; private set; }
 
+    [Header("Transition Settings")]
+    [SerializeField] private Animator transitionAnimator;
+    [SerializeField] private float sceneTransitionTime = 1f;
+
     [Header("UI Panels")]
     [SerializeField] public GameObject mainMenuPanel; // Reference your Main Menu panel here
 
@@ -59,6 +63,8 @@ public class MenuCoordinator : MonoBehaviour
             LogHandler.Log("Heading into Game Scene. Hiding Menu Panel");
         }
 
+        yield return new WaitForSecondsRealtime(sceneTransitionTime);
+
         // 1. Trigger transition out and yield until finished
         yield return UIAnimationManager.Instance.PlayFadeOut();
 
@@ -75,7 +81,6 @@ public class MenuCoordinator : MonoBehaviour
             mainMenuPanel.SetActive(true);
             LogHandler.Log("Main Menu Scene Loaded. Showing Menu Panel");
         }
-
-
+    }
 
 }
