@@ -50,7 +50,7 @@ public class InGameUIManager : MonoBehaviour
         LogHandler.Log("Pause Interface has been activated");
     }
 
-    private void HidePauseUI()
+    public void HidePauseUI()
     {
         if (pauseInterface) pauseInterface.SetActive(false);
         LogHandler.Log("Pause Interface has been de-activated");
@@ -62,9 +62,22 @@ public class InGameUIManager : MonoBehaviour
         LogHandler.Log("Game Over UI activated");
     }
 
+    public void HideGameOverUI()
+    {
+        if (gameOverInterface) gameOverInterface.SetActive(false);
+        LogHandler.Log("Game Over UI de-activated");
+    }
+
+
     private void ShowVictoryUI()
     {
         if (victoryInterface) victoryInterface.SetActive(true);
         LogHandler.Log("Victory UI activated");
+    }
+
+    public void HideVictoryUI()
+    {
+        if (victoryInterface) victoryInterface.SetActive(false);
+        LogHandler.Log("Victory UI de-activated");
     }
 }

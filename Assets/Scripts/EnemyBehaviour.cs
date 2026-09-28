@@ -232,7 +232,7 @@ public class EnemyBehaviour : MonoBehaviour
         detectionRange = Mathf.Min(maxDetectionRange, detectionRange / agroMultiplier);
         LogHandler.Log($"Enemy detection range increased to {detectionRange}");
 
-        enemyMoveSpeed = enemyMoveSpeed / agroMultiplier;
+        enemyMoveSpeed = (enemyMoveSpeed / agroMultiplier);
     }
 
 }

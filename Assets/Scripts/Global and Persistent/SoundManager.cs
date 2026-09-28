@@ -7,13 +7,13 @@ public class SoundManager : MonoBehaviour
     public AudioClip[] audioClipList;
 
     [Header("Audio")]
-    [SerializeField] private SoundManager musicManager;
+    [SerializeField] private SoundManager instance;
     // Start is called before the first frame update
     void Start()
     {
-        if (musicManager != null)
+        if (instance != null)
         {
-            DontDestroyOnLoad(musicManager.gameObject);
+            DontDestroyOnLoad(instance.gameObject);
         }
     }
 
@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayPickUpSound()
     {
-        if (musicManager != null && musicManager.TryGetComponent(out AudioSource source))
+        if (instance != null && instance.TryGetComponent(out AudioSource source))
         {
             source.enabled = true;
         }

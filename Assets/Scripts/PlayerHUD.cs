@@ -19,7 +19,6 @@ public class PlayerHUD : MonoBehaviour
     [Header("Values")]
     [SerializeField] private int totalQuota = 10;
     [SerializeField] private int currentItems = 0;
-    [SerializeField] private float staminaPauseTime = 2f;
     [SerializeField] private float maxDetection = 1f;
 
     private void Start()
@@ -77,7 +76,7 @@ public class PlayerHUD : MonoBehaviour
 
             if (detectionUI.size >= maxDetection)
             {
-                LogHandler.Log($"Detection number has reached {detectionUI.size}");
+                LogHandler.Log($"Detection number has reached {detectionUI.size}, Game Over!");
                 GameManager.Instance.TriggerGameOver();
             }
         }

@@ -5,27 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MenuFunctionality : MonoBehaviour
 {
-    public static MenuFunctionality Instance { get; private set; }
-
     [Header("Transition Settings")]
     [SerializeField] private Animator transitionAnimator;
     [SerializeField] private float sceneTransitionTime = 1f;
+  
 
     private void Awake()
     {
-        /*
-
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        */
-        
-        
-
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
+  
     }
 
 
@@ -38,11 +25,21 @@ public class MenuFunctionality : MonoBehaviour
     public void LoadMenu()
     {
         Time.timeScale = 1f;
-        StartCoroutine(LoadLevelRoutine(0));
+
+        if (MenuCoordinator.Instance != null)
+        {
+            MenuCoordinator.Instance.LoadMenu();
+            
+        }
+        else
+        {
+            LogHandler.Log("MenuCoordinator instance not found when trying to load menu.");
+        }
     }
 
     private IEnumerator LoadLevelRoutine(int levelIndex)
     {
+
         CanvasGroup canvasGroup = transitionAnimator != null ? transitionAnimator.GetComponent<CanvasGroup>() : null;
         if (canvasGroup != null) canvasGroup.blocksRaycasts = true;
 
