@@ -591,6 +591,10 @@ PrefabInstance:
       propertyPath: transitionAnimator
       value: 
       objectReference: {fileID: 1688101070}
+    - target: {fileID: 7217909416075003716, guid: 03265281b6036da4fb5e23fbd5eb7d87, type: 3}
+      propertyPath: sceneTransitionTime
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

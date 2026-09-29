@@ -9,6 +9,7 @@ public class UIAnimationManager : MonoBehaviour
     [SerializeField] private Animator transitionAnimator;
     private static readonly int FadeOutHash = Animator.StringToHash("End");
     private static readonly int FadeInHash = Animator.StringToHash("Start");
+    
 
     [SerializeField] private float sceneTransitionTime = 1f;
 
