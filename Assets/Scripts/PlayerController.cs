@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -35,14 +36,24 @@ public class PlayerController : MonoBehaviour
     private float regenTimer;
     private bool isExhausted;
     private bool isSprinting;
+    private Rigidbody rb;
+    private Vector3 moveDirection;
 
     private void Start()
     {
         currentStamina = maxStamina;
+        rb = GetComponentInParent<Rigidbody>();
     }
 
     void Update()
     {
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveZ = Input.GetAxisRaw("Vertical");
+
+        Debug.Log($"Input - X: {moveX}, Z: {moveZ}");
+
+        moveDirection = (playerCapsule.forward * moveZ + playerCapsule.right * moveX).normalized;
+
         HandleLook();
         ManageStamina();
 
@@ -50,6 +61,8 @@ public class PlayerController : MonoBehaviour
         {
             playerHUD.UpdateStaminaDisplay(currentStamina, maxStamina);
         }
+
+
     }
 
     private void FixedUpdate()
@@ -128,18 +141,12 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveZ = Input.GetAxisRaw("Vertical");
-
-        Vector3 moveDirection = (playerCapsule.forward * moveZ  +  playerCapsule.right * moveX).normalized;
-
         float currentSpeed = isSprinting ? moveSpeed * sprintMultiplier : moveSpeed;
+        Vector3 targetPosition = rb.position + moveDirection * currentSpeed * Time.fixedDeltaTime;
 
-        playerCapsule.position +=  moveDirection * currentSpeed * Time.fixedDeltaTime;
+        rb.MovePosition(targetPosition);
 
-        Debug.Log($"Input - X: {moveX}, Z: {moveZ}");
     }
-
 
 }
 

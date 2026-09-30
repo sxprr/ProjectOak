@@ -61,12 +61,15 @@ public class MenuCoordinator : MonoBehaviour
         {
             mainMenuPanel.SetActive(false);
             LogHandler.Log("Heading into Game Scene. Hiding Menu Panel");
+
+            yield return new WaitForSecondsRealtime(sceneTransitionTime);
+
+            yield return UIAnimationManager.Instance.PlayFadeOut();
+
         }
 
-        yield return new WaitForSecondsRealtime(sceneTransitionTime);
 
         // 1. Trigger transition out and yield until finished
-        yield return UIAnimationManager.Instance.PlayFadeOut();
 
         // 2. Load the scene asynchronously and wait until fully loaded
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(levelIndex);
@@ -80,6 +83,8 @@ public class MenuCoordinator : MonoBehaviour
         {
             mainMenuPanel.SetActive(true);
             LogHandler.Log("Main Menu Scene Loaded. Showing Menu Panel");
+
+            yield return UIAnimationManager.Instance.PlayFadeOut();
         }
     }
 
