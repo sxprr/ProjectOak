@@ -54,7 +54,6 @@ public class PlayerController : MonoBehaviour
 
         moveDirection = (playerCapsule.forward * moveZ + playerCapsule.right * moveX).normalized;
 
-        HandleLook();
         ManageStamina();
 
         if (playerHUD != null)
@@ -67,12 +66,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        HandleRBLook();
         MovePlayer();
     }
 
-    // when you gave it instructions but you still don't know
+    
     private void HandleLook()
     {
+        //mouse input capture
         float mouseX = Input.GetAxisRaw("Mouse X") * Time.deltaTime * sensX;
         float mouseY = Input.GetAxisRaw("Mouse Y") * Time.deltaTime * sensY;
 
@@ -80,19 +81,22 @@ public class PlayerController : MonoBehaviour
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        // Rotate parent capsule around Y axis
-        if (playerCapsule != null)
-        {
-            playerCapsule.rotation = Quaternion.Euler(0f, yRotation, 0f);
-        }
-
         // Rotate camera locally around X axis (pitch)
         if (cameraHolder != null)
         {
             cameraHolder.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        }
 
-        // Child objects (orientation, playerNose) inherit playerCapsule's Y rotation automatically
+        }
+    }
+    private void HandleRBLook()
+    {
+        // Apply Y-axis rotation to the parent Rigidbody via MoveRotation
+        if (rb != null)
+        {
+            Quaternion targetRotation = Quaternion.Euler(0f, yRotation, 0f);
+            rb.MoveRotation(targetRotation);
+        }
+        
     }
 
     private void ManageStamina()
@@ -145,6 +149,7 @@ public class PlayerController : MonoBehaviour
         Vector3 targetPosition = rb.position + moveDirection * currentSpeed * Time.fixedDeltaTime;
 
         rb.MovePosition(targetPosition);
+        
 
     }
 
