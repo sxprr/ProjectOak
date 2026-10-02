@@ -11925,7 +11925,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8207547, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.81960785, g: 0.18045782, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -20481,6 +20481,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2382334165130069077, guid: a840aac9b3418f24a934d255f2a3ad43, type: 3}
+      propertyPath: detectionCircle
+      value: 
+      objectReference: {fileID: 946954754}
     - target: {fileID: 2700268196905730382, guid: a840aac9b3418f24a934d255f2a3ad43, type: 3}
       propertyPath: m_Name
       value: UserInterface (Canvas)
