@@ -10,6 +10,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private Scrollbar staminaUI;
     [SerializeField] private GameObject interactionPrompt; // Assign "Press E" UI panel/text here
     [SerializeField] private Image itemIcon;
+    [SerializeField] private Image detectionCircle;
 
     [Header("Text References")]
     [SerializeField] private TextMeshProUGUI itemText;
@@ -73,6 +74,8 @@ public class PlayerHUD : MonoBehaviour
         if (detectionUI != null)
         {
             detectionUI.size = Mathf.Clamp01(detectionUI.size + detectionAmount);
+            //both of these should scale together
+            
 
             if (detectionUI.size >= maxDetection)
             {
