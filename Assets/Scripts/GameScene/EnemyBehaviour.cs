@@ -8,7 +8,6 @@ public enum EnemyState
 {
     Patrolling,
     Detecting,
-    Attack
 }
 
 public class EnemyBehaviour : MonoBehaviour

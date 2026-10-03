@@ -42,7 +42,8 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateMouseLook();
+        MovePlayer();
     }
 
 
@@ -55,5 +56,35 @@ public class Movement : MonoBehaviour
         cameraCap -= Mathf.Clamp(cameraCap, -90.0f, 90.0f);
 
         playerCamera.localEulerAngles = Vector3.right * cameraCap;
+
+        transform.Rotate(Vector3.up * currentMouseDelta.x * mouseSensitivity);
+    }
+
+    void MovePlayer()
+    {
+        isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
+
+        Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        targetDir.Normalize();
+
+        currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmooTime);
+
+        velocityY += gravity * 2f * Time.deltaTime;
+
+        velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * speed + Vector3.up * velocityY;
+
+        controller.Move(velocity * Time.deltaTime);
+
+        if(isGrounded && Input.GetButtonDown("Jump"))
+        {
+            velocityY = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
+
+        if(isGrounded! && controller.velocity.y < -1f)
+        {
+            velocityY = -8f;
+        }
+
+
     }
 }
