@@ -6,7 +6,7 @@ public class Movement : MonoBehaviour
 {
     [SerializeField] Transform playerCamera;
     [SerializeField] [Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
-    [SerializeField] [Range(0.0f, 0.5f)] float moveSmooTime = 0.3f;
+    [SerializeField] [Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
     [SerializeField] private float gravity = -30f;
     [SerializeField] public Transform groundCheck;
     [SerializeField] private LayerMask ground;
@@ -43,21 +43,39 @@ public class Movement : MonoBehaviour
     void Update()
     {
         UpdateMouseLook();
+    }
+
+    private void FixedUpdate()
+    {
         MovePlayer();
     }
 
 
+    // can't look up or down.
     void UpdateMouseLook()
     {
-        Vector2 targetMouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector2 targetMouseDelta = new Vector2(
+        Input.GetAxis("Mouse X"),
+        Input.GetAxis("Mouse Y")
+    );
 
-        currentMouseDelta = Vector2.SmoothDamp(currentMouseDelta, targetMouseDelta, ref currentMouseDeltaVelocity, mouseSmoothTime);
+        currentMouseDelta = Vector2.SmoothDamp(
+            currentMouseDelta,
+            targetMouseDelta,
+            ref currentMouseDeltaVelocity,
+            mouseSmoothTime
+        );
 
-        cameraCap -= Mathf.Clamp(cameraCap, -90.0f, 90.0f);
+        // Vertical look
+        cameraCap -= currentMouseDelta.y * mouseSensitivity;
+        cameraCap = Mathf.Clamp(cameraCap, -90.0f, 90.0f);
 
         playerCamera.localEulerAngles = Vector3.right * cameraCap;
 
-        transform.Rotate(Vector3.up * currentMouseDelta.x * mouseSensitivity);
+        // Horizontal look
+        transform.Rotate(
+            Vector3.up * currentMouseDelta.x * mouseSensitivity
+        );
     }
 
     void MovePlayer()
@@ -67,7 +85,7 @@ public class Movement : MonoBehaviour
         Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         targetDir.Normalize();
 
-        currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmooTime);
+        currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
 
         velocityY += gravity * 2f * Time.deltaTime;
 
@@ -86,5 +104,11 @@ public class Movement : MonoBehaviour
         }
 
 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position,transform.forward * 5f);
     }
 }

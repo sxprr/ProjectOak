@@ -35,8 +35,6 @@ public class PlayerPickUpDebug : MonoBehaviour
         if (_controller == null || _controller.playerCamTransform == null)
             return;
 
-        
-
         Gizmos.color = Color.blue;
         Gizmos.DrawRay(_controller.playerCamTransform.position, _controller.playerCamTransform.forward * rayDistance);
     }
