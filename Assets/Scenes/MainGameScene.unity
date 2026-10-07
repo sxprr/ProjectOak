@@ -13240,6 +13240,16 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5140666290046104796, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
   m_PrefabInstance: {fileID: 1832137860}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1123840867 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2660096311369308555, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
+  m_PrefabInstance: {fileID: 1832137860}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1123840869 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 2761299747745675391, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
+  m_PrefabInstance: {fileID: 1832137860}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1123840870
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13341,7 +13351,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _controller: {fileID: 1123840873}
   rayDistance: 5
-  rayColor: {r: 0, g: 0, b: 1, a: 1}
+  rayColor: {r: 0.8489914, g: 0, b: 1, a: 1}
   secondRayColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &1123840873
 MonoBehaviour:
@@ -13355,12 +13365,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c9e41a55befbd144b56fbc1fa566082, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  playerCamTransform: {fileID: 0}
+  mainCamera: {fileID: 1123840869}
+  playerCamTransform: {fileID: 1123840867}
   pickUpMask:
     serializedVersion: 2
-    m_Bits: 0
-  playerHUD: {fileID: 0}
+    m_Bits: 64
+  playerHUD: {fileID: 1853413609}
   pickUpDistance: 4
   OnInteraction:
     m_PersistentCalls:
@@ -17487,6 +17497,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CCPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 744850294176492660, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2660096311369308555, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -20880,7 +20894,7 @@ GameObject:
   m_Icon: {fileID: 4422084297763085224, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1641228832213502380
 MonoBehaviour:
   m_ObjectHideFlags: 0
