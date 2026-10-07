@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace GlobalAndPersistent
 {
@@ -13,6 +14,7 @@ namespace GlobalAndPersistent
         [SerializeField] public Transform groundCheck;
         [SerializeField] private LayerMask ground;
         [SerializeField] private bool cursorLock = true;
+        [SerializeField] private bool Jumping;
         [SerializeField] private float mouseSensitivity = 3.3f;
         [SerializeField] private float speed = 6f;
 
@@ -21,6 +23,7 @@ namespace GlobalAndPersistent
         float velocityY;
         bool isGrounded;
         bool isSprinting;
+        
 
         float cameraCap;
         Vector2 currentMouseDelta;
@@ -31,6 +34,9 @@ namespace GlobalAndPersistent
         Vector2 currentDirVelocity;
         Vector3 velocity;
 
+        [Header("UI Reference")]
+        public PlayerHUD playerHUD;
+
         // Stamina values
         private bool isExhausted;
         private float currentStamina;
@@ -39,6 +45,16 @@ namespace GlobalAndPersistent
         private float maxStamina;
         private float regenDelay;
         private float staminaRegenRate;
+
+        // sense values
+
+        public UnityEvent onSense;
+        private float currentCharge;
+        private float senseRegenTimer;
+        private float senseRegenRate;
+        private bool senseFull;
+        private float maxCharge;
+
 
         // Start is called before the first frame update
         void Start()
@@ -56,6 +72,12 @@ namespace GlobalAndPersistent
         void Update()
         {
             UpdateMouseLook();
+            TriggerSenseAbility();
+
+            if(playerHUD != null)
+            {
+                playerHUD.UpdateSenseDisplay(currentCharge, maxCharge);
+            }
         }
 
         private void FixedUpdate()
@@ -107,11 +129,7 @@ namespace GlobalAndPersistent
 
             controller.Move(velocity * Time.deltaTime);
 
-
-            if (isGrounded && Input.GetButtonDown("Jump"))
-            {
-                velocityY = Mathf.Sqrt(jumpHeight * -2f * gravity);
-            }
+            Jump();
 
             if (isGrounded! && controller.velocity.y < -1f)
             {
@@ -121,6 +139,60 @@ namespace GlobalAndPersistent
 
         }
 
+        
+        
+        void TriggerSenseAbility()
+        {
+            // ult button, assigned to a boolean.
+            //bool ultPressed = Input.GetKey(KeyCode.Q);
+
+            if(Input.GetKey(KeyCode.Q))
+            {
+                onSense.Invoke();
+            }
+
+            /*
+            //Player can only press ult when the meter is full.
+            //when we press the button, it should go straight to zero.
+            if(ultPressed && senseFull && currentCharge >= maxCharge)
+            {
+                
+                senseRegenTimer = 0f;
+                currentCharge = 0f;
+
+                if(currentCharge <= 0f)
+                {
+                    //start charging up as normal
+                    currentCharge += senseRegenRate * Time.deltaTime;
+
+                }
+            }
+            else
+            {
+                //if we aren't full,
+                if(currentCharge < maxCharge)
+                {
+                    
+                }
+            }
+            */
+            
+
+            
+        }
+
+        void Jump()
+        {
+            if(Jumping)
+            {
+                if (isGrounded && Input.GetButtonDown("Jump"))
+                {
+                    velocityY = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                }
+
+            }
+
+        }
 
         //visualize ray
         private void OnDrawGizmos()

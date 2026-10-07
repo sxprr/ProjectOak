@@ -10,6 +10,7 @@ public class PlayerHUD : MonoBehaviour
     [Header("UI References")]
     [SerializeField] private Scrollbar detectionUI;
     [SerializeField] private Scrollbar staminaUI;
+    [SerializeField] private Scrollbar senseUI;
     [SerializeField] private GameObject interactionPrompt; // Assign "Press E" UI panel/text here
     [SerializeField] private Image itemIcon;
     [SerializeField] private RawImage detectionCircle;
@@ -110,6 +111,14 @@ public class PlayerHUD : MonoBehaviour
         if (staminaUI != null)
         {
             staminaUI.size = Mathf.Clamp01(currentStamina / maxStamina);
+        }
+    }
+
+    public void UpdateSenseDisplay(float currentSense, float maxSense)
+    {
+        if(senseUI != null)
+        {
+            senseUI.size = Mathf.Clamp01(currentSense / maxSense);
         }
     }
 

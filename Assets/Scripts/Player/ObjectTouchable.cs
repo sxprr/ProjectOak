@@ -11,7 +11,8 @@ public class ObjectTouchable : MonoBehaviour
     [SerializeField] private float rotationSpeed = 50f;
     [SerializeField] private float floatSpeed = 2f;
     [SerializeField] private float floatHeight = 0.25f;
-
+    
+    private ParticleSystem senseParticles;
     private Vector3 startPosition;
 
     // Start is called before the first frame update
@@ -19,6 +20,8 @@ public class ObjectTouchable : MonoBehaviour
     {
         // Store the starting local or world position so it bobs around its initial spot
         startPosition = transform.position;
+
+        senseParticles = GetComponentInChildren<ParticleSystem>();
     }
 
     // Update is called once per frame
@@ -38,6 +41,11 @@ public class ObjectTouchable : MonoBehaviour
         onVanish.Invoke();
 
 
+    }
+
+    public void ItemFlash()
+    {
+        senseParticles.Play();
     }
 
 }
