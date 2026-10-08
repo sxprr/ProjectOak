@@ -47,13 +47,14 @@ namespace GlobalAndPersistent
         private float staminaRegenRate;
 
         // sense values
-
+        [Header("Sense Ability Settings")]
         public UnityEvent onSense;
         private float currentCharge;
         private float senseRegenTimer;
-        private float senseRegenRate;
+        private float senseRegenRate = 15f;
         private bool senseFull;
-        private float maxCharge;
+        private float maxCharge = 100f;
+        private float minCharge = 1f;
 
 
         // Start is called before the first frame update
@@ -144,25 +145,24 @@ namespace GlobalAndPersistent
         void TriggerSenseAbility()
         {
             // ult button, assigned to a boolean.
-            //bool ultPressed = Input.GetKey(KeyCode.Q);
-
-            if(Input.GetKey(KeyCode.Q))
-            {
-                onSense.Invoke();
-            }
-
-            /*
+            bool ultPressed = Input.GetKey(KeyCode.Q);
+            
             //Player can only press ult when the meter is full.
             //when we press the button, it should go straight to zero.
-            if(ultPressed && senseFull && currentCharge >= maxCharge)
+             if(ultPressed && senseFull && currentCharge >= maxCharge)
             {
-                
+
+                // four different scripts will be listening, so event is needed.
+                onSense.Invoke(); 
                 senseRegenTimer = 0f;
                 currentCharge = 0f;
 
-                if(currentCharge <= 0f)
+                LogHandler.Log("Q has been pressed!");
+
+                if(currentCharge == minCharge)
                 {
                     //start charging up as normal
+                    LogHandler.Log($"Charge should be charging as normal: {currentCharge}");
                     currentCharge += senseRegenRate * Time.deltaTime;
 
                 }
@@ -172,10 +172,10 @@ namespace GlobalAndPersistent
                 //if we aren't full,
                 if(currentCharge < maxCharge)
                 {
-                    
+                    LogHandler.Log("Not full yet");
                 }
             }
-            */
+            
             
 
             
