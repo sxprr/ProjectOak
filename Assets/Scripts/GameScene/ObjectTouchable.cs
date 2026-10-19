@@ -21,7 +21,7 @@ public class ObjectTouchable : MonoBehaviour
         // Store the starting local or world position so it bobs around its initial spot
         startPosition = transform.position;
 
-        senseParticles = GetComponentInChildren<ParticleSystem>();
+        senseParticles = GetComponentInChildren<ParticleSystem>(true);
     }
 
     // Update is called once per frame
@@ -39,13 +39,22 @@ public class ObjectTouchable : MonoBehaviour
     {
         gameObject.SetActive(false);
         onVanish.Invoke();
-
-
     }
 
+    // METHOD THAT LISTENS TO onSense.Invoke()
     public void ItemFlash()
     {
+        //this is supposed to run on ANY object that has this script attached.
+        //that's not happening.
+
+        if (senseParticles == null)
+        {
+            Debug.LogWarning($"{name}: no ParticleSystem found for ItemFlash", this);
+            return;
+        }
+
         senseParticles.Play();
+        LogHandler.Log("Sense particles have been emitted!");
     }
 
 }

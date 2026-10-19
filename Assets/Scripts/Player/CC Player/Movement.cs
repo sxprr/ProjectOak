@@ -7,9 +7,10 @@ namespace GlobalAndPersistent
 {
     public class Movement : MonoBehaviour
     {
+        [Header("Control Values")]
         [SerializeField] Transform playerCamera;
-        [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
-        [SerializeField][Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
+        [SerializeField] [Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
+        [SerializeField] [Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
         [SerializeField] private float gravity = -30f;
         [SerializeField] public Transform groundCheck;
         [SerializeField] private LayerMask ground;
@@ -38,24 +39,23 @@ namespace GlobalAndPersistent
         public PlayerHUD playerHUD;
 
         // Stamina values
+        [Header("Stamina Values")]
+        [SerializeField] private float maxStamina;
+        [SerializeField] private float staminaRegenRate;
+        [SerializeField] private float staminaDrainRate;
+        [SerializeField] private float regenDelay;
         private bool isExhausted;
         private float currentStamina;
-        private float staminaDrainRate;
         private float regenTimer;
-        private float maxStamina;
-        private float regenDelay;
-        private float staminaRegenRate;
 
-        // sense values
         [Header("Sense Ability Settings")]
         public UnityEvent onSense;
         private float currentCharge;
-        private float senseRegenTimer;
-        private float senseRegenRate = 15f;
-        private bool senseFull;
-        private float maxCharge = 100f;
-        private float minCharge = 1f;
+        [SerializeField] private float maxCharge = 100f;
+        [SerializeField] private float senseRegenRate = 15f;   // Speed at which it recharges
+        [SerializeField] private float senseDrainRate = 50f;   // Speed at which it drains when activated
 
+        private bool isDischarging;
 
         // Start is called before the first frame update
         void Start()
@@ -81,9 +81,11 @@ namespace GlobalAndPersistent
             }
         }
 
+        // sync with CineMachine camera update cycle
         private void FixedUpdate()
         {
             MovePlayer();
+            ManageStamina();
         }
 
 
@@ -114,9 +116,9 @@ namespace GlobalAndPersistent
             );
         }
 
+        // player movement
         void MovePlayer()
         {
-            
             isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
 
             Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -137,50 +139,91 @@ namespace GlobalAndPersistent
                 velocityY = -8f;
             }
 
-
         }
 
-        
-        
-        void TriggerSenseAbility()
+        private void ManageStamina()
         {
-            // ult button, assigned to a boolean.
-            bool ultPressed = Input.GetKey(KeyCode.Q);
-            
-            //Player can only press ult when the meter is full.
-            //when we press the button, it should go straight to zero.
-             if(ultPressed && senseFull && currentCharge >= maxCharge)
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveZ = Input.GetAxisRaw("Vertical");
+            bool isMoving = Mathf.Abs(moveX) > 0.1f || Mathf.Abs(moveZ) > 0.1f;
+
+            bool shiftHeld = Input.GetKey(KeyCode.LeftShift);
+
+            // Player only sprints if holding shift, moving, and not exhausted
+            isSprinting = shiftHeld && isMoving && !isExhausted && currentStamina > 0f;
+
+            if (isSprinting)
             {
+                currentStamina -= staminaDrainRate * Time.deltaTime;
+                regenTimer = 0f;
 
-                // four different scripts will be listening, so event is needed.
-                onSense.Invoke(); 
-                senseRegenTimer = 0f;
-                currentCharge = 0f;
-
-                LogHandler.Log("Q has been pressed!");
-
-                if(currentCharge == minCharge)
+                if (currentStamina <= 0f)
                 {
-                    //start charging up as normal
-                    LogHandler.Log($"Charge should be charging as normal: {currentCharge}");
-                    currentCharge += senseRegenRate * Time.deltaTime;
-
+                    currentStamina = 0f;
+                    isExhausted = true; // Lock sprinting until recovered
                 }
             }
             else
             {
-                //if we aren't full,
-                if(currentCharge < maxCharge)
+                if (currentStamina < maxStamina)
                 {
-                    LogHandler.Log("Not full yet");
-                }
-            }
-            
-            
+                    regenTimer += Time.deltaTime;
 
-            
+                    if (regenTimer >= regenDelay)
+                    {
+                        currentStamina += staminaRegenRate * Time.deltaTime;
+
+                        // Unlock exhaustion once stamina recovers partially or fully
+                        if (isExhausted && currentStamina >= maxStamina * 0.25f)
+                        {
+                            isExhausted = false;
+                        }
+                    }
+                }
+
+                currentStamina = Mathf.Clamp(currentStamina, 0f, maxStamina);
+            }
         }
 
+        void TriggerSenseAbility()
+        {
+
+            bool qPressed = Input.GetKeyDown(KeyCode.Q);
+
+            if (qPressed) LogHandler.Log($"Q pressed. charge={currentCharge}, max={maxCharge}, discharging={isDischarging}");
+       
+            //Temporarliy removed conditions for testing, as well as onSense
+            if (qPressed && currentCharge >= maxCharge && !isDischarging)
+            {
+                isDischarging = true;
+                try { onSense.Invoke(); }
+                catch (System.Exception e) { Debug.LogException(e); }
+                LogHandler.Log("Sense ability activated! Discharging...");
+            }
+
+            // 2. State: Currently discharging smoothly down to zero
+            if (isDischarging)
+            {
+                currentCharge -= senseDrainRate * Time.deltaTime;
+
+                // Once fully drained, stop discharging so recharge can begin
+                if (currentCharge <= 0f)
+                {
+                    currentCharge = 0f;
+                    isDischarging = false;
+                    Debug.Log("Fully discharged. Starting recharge.");
+                }
+            }
+            // 3. State: Recharging smoothly back up to max Charge
+            else if (currentCharge < maxCharge)
+            {
+                currentCharge += senseRegenRate * Time.deltaTime;
+                currentCharge = Mathf.Min(currentCharge, maxCharge);
+                
+            }
+        }
+
+        // can now be toggled on and off in the inspector
         void Jump()
         {
             if(Jumping)
