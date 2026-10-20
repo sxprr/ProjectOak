@@ -1,16 +1,20 @@
- using System.Collections;
+using GlobalAndPersistent;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class ObjectTouchable : MonoBehaviour
 {
+
     public UnityEvent onVanish;
 
     [Header("Movement Settings")]
     [SerializeField] private float rotationSpeed = 50f;
     [SerializeField] private float floatSpeed = 2f;
     [SerializeField] private float floatHeight = 0.25f;
+
+    [SerializeField] private Movement player;
     
     private ParticleSystem senseParticles;
     private Vector3 startPosition;
@@ -55,6 +59,17 @@ public class ObjectTouchable : MonoBehaviour
 
         senseParticles.Play();
         LogHandler.Log("Sense particles have been emitted!");
+    }
+
+    private void OnEnable()
+    {
+        if (player == null) player = FindFirstObjectByType<Movement>();
+        if (player != null) player.onSense.AddListener(ItemFlash);
+    }
+
+    private void OnDisable()
+    {
+        if (player != null) player.onSense.RemoveListener(ItemFlash);
     }
 
 }

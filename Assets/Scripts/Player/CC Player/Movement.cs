@@ -78,6 +78,7 @@ namespace GlobalAndPersistent
             if(playerHUD != null)
             {
                 playerHUD.UpdateSenseDisplay(currentCharge, maxCharge);
+                playerHUD.UpdateStaminaDisplay(currentStamina, maxStamina);
             }
         }
 
@@ -152,6 +153,13 @@ namespace GlobalAndPersistent
             // Player only sprints if holding shift, moving, and not exhausted
             isSprinting = shiftHeld && isMoving && !isExhausted && currentStamina > 0f;
 
+            // debug to check if the input is actually being detected.
+            if (shiftHeld)
+            {
+                LogHandler.Log($"Shift: {shiftHeld} Moving: {isMoving} (x: {moveX}, z: {moveZ}) " +
+                               $"Exhausted: {isExhausted} Stamina: {currentStamina}/{maxStamina} Sprinting: {isSprinting}");
+            }
+
             if (isSprinting)
             {
                 currentStamina -= staminaDrainRate * Time.deltaTime;
@@ -211,6 +219,7 @@ namespace GlobalAndPersistent
                 {
                     currentCharge = 0f;
                     isDischarging = false;
+                    
                     Debug.Log("Fully discharged. Starting recharge.");
                 }
             }

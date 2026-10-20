@@ -449,6 +449,7 @@ MonoBehaviour:
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
+  player: {fileID: 0}
 --- !u!1 &98684758 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6235304781109741881, guid: 81449f58058afaf49b4c5885a666d92f, type: 3}
@@ -11939,6 +11940,7 @@ MonoBehaviour:
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
+  player: {fileID: 0}
 --- !u!1 &905599020
 GameObject:
   m_ObjectHideFlags: 0
@@ -13500,6 +13502,7 @@ MonoBehaviour:
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
+  player: {fileID: 0}
 --- !u!1 &1123840866 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5140666290046104796, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
@@ -14836,6 +14839,7 @@ MonoBehaviour:
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
+  player: {fileID: 0}
 --- !u!1 &1281312865
 GameObject:
   m_ObjectHideFlags: 0
@@ -15922,6 +15926,7 @@ MonoBehaviour:
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
+  player: {fileID: 0}
 --- !u!4 &1476763452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2564139344595500327, guid: 81449f58058afaf49b4c5885a666d92f, type: 3}
@@ -16884,6 +16889,7 @@ MonoBehaviour:
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
+  player: {fileID: 0}
 --- !u!1001 &1683597942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17784,6 +17790,7 @@ MonoBehaviour:
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
+  player: {fileID: 0}
 --- !u!1001 &1782203995
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18041,7 +18048,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4481271367398101503, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
       propertyPath: speed
-      value: 25
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4481271367398101503, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
       propertyPath: Jumping
@@ -18910,6 +18917,7 @@ MonoBehaviour:
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
+  player: {fileID: 0}
 --- !u!1001 &1924700381
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19104,6 +19112,7 @@ MonoBehaviour:
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
+  player: {fileID: 0}
 --- !u!1001 &1926270419
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20168,6 +20177,7 @@ MonoBehaviour:
   rotationSpeed: 50
   floatSpeed: 2
   floatHeight: 0.25
+  player: {fileID: 0}
 --- !u!4 &2096981649 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2564139344595500327, guid: 81449f58058afaf49b4c5885a666d92f, type: 3}
