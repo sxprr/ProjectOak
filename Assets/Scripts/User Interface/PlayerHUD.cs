@@ -84,6 +84,7 @@ public class PlayerHUD : MonoBehaviour
         if (GameManager.Instance.IsPaused)
             return;
 
+        // TODO: More logic is being handled than necessary. Migrate logic back to EnemyBehaviour.cs
         if (detectionUI != null)
         {
             //this circle detection needs to pause when the enemy loses contact.
@@ -122,6 +123,7 @@ public class PlayerHUD : MonoBehaviour
         }
     }
 
+    // This point of this is to "discharge" the detection amount over time.
     public void SubtractDetection(float detectionAmount)
     {
         if (detectionUI != null)

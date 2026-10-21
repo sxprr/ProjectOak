@@ -26,6 +26,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float maxDetectionRange = 30.0f;
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float viewAngle = 90f;
+    [SerializeField] private float playerDetectionAmount = 100f;
 
     // I need to multiply this float but I forgot which part is responsible for it's movement.
     [SerializeField] private float enemyMoveSpeed = 5f;
@@ -202,9 +203,17 @@ public class EnemyBehaviour : MonoBehaviour
         return false;
     }
 
+    public void PlayerDetection()
+    {
+
+    }
+
     // Visual Gizmos for easy Scene Debugging
     private void OnDrawGizmosSelected()
     {
+        // Null protection for transform or any component dependencies
+        if (transform == null) return;
+
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
 
