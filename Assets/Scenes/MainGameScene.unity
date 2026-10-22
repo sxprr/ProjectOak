@@ -21460,9 +21460,10 @@ MonoBehaviour:
   stopAtDistance: 0.5
   maxLostPlayerTime: 15
   losePlayerTime: 3
-  maxDetectionRange: 30
-  detectionRange: 5
+  maxDetectionRange: 55.1
+  detectionRange: 76
   viewAngle: 90
+  playerDetectionAmount: 100
   enemyMoveSpeed: 5
   onPlayerSight:
     m_PersistentCalls:
