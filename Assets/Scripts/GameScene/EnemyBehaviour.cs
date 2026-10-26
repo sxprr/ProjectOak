@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -26,16 +27,14 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float maxDetectionRange = 30.0f;
     [SerializeField] private float detectionRange = 5f;
     [SerializeField] private float viewAngle = 90f;
-    [SerializeField] private float playerDetectionAmount = 100f;
-
-    // I need to multiply this float but I forgot which part is responsible for it's movement.
     [SerializeField] private float enemyMoveSpeed = 5f;
 
-
-    [Header("Events")]
-    public UnityEvent onPlayerSight;
-    public UnityEvent onPlayerLoss;
-
+    [Header("Player Detection Settings")]
+    [SerializeField] private float playerDetectionRate = 0.01f;
+    [SerializeField] private float playerDetectionDischargeRate = 0.01f; // new: tune separately from fill rate
+    private float maxPlayerDetection = 1f;
+    private float currentPlayerDetection;
+    private bool isDetectionDischarging;
 
     private NavMeshAgent _agent;
     private EnemyState _state = EnemyState.Patrolling;
@@ -142,38 +141,71 @@ public class EnemyBehaviour : MonoBehaviour
         GoToNextPatrolPoint();
     }
 
+    //TODO: This method looks messy and poorly documented, ORGANISE IT!
+    private Vector3 _lastKnownPlayerPosition;
+
+    /// <summary>
+    /// Runs every frame while the enemy is in the Detecting state.
+    /// Fills or drains the detection meter, chases the player, and
+    /// decides whether to trigger game over or give up and patrol.
+    /// </summary>
     private void Detecting()
     {
-        // Don't detect while paused
         if (GameManager.Instance.IsPaused)
             return;
 
-        // When the player is detected, head to towards thier position
-        _agent.SetDestination(player.position);
+        bool canSeePlayer = CanSeePlayer();
 
-        //Invoke the "player sighted event"
-        onPlayerSight.Invoke();
+        UpdateDetectionMeter(canSeePlayer);
 
-        LogHandler.Log("PLAYER SPOTTED! I SEE YOU");
-
-        if (CanSeePlayer())
+        if (HasDetectedPlayer())
         {
-            _timeSinceLostPlayer = 0f; // Reset search timer while player is in sight
+            LogHandler.Log($"Detection reached {maxPlayerDetection}, Game Over!");
+            GameManager.Instance.TriggerGameOver();
+            return;
         }
-        else
+
+        ChaseTarget(canSeePlayer);
+        UpdateLostPlayerTimer(canSeePlayer);
+    }
+
+    /// <summary>Fills the meter while the player is visible, drains it otherwise.</summary>
+    private void UpdateDetectionMeter(bool canSeePlayer)
+    {
+        float rate = canSeePlayer ? playerDetectionRate : -playerDetectionDischargeRate;
+
+        currentPlayerDetection = Mathf.Clamp(
+            currentPlayerDetection + rate * Time.deltaTime,
+            0f,
+            maxPlayerDetection);
+
+        isDetectionDischarging = !canSeePlayer && currentPlayerDetection > 0f;
+    }
+
+    private bool HasDetectedPlayer() => currentPlayerDetection >= maxPlayerDetection;
+
+    /// <summary>Heads to the player while visible, otherwise to where they were last seen.</summary>
+    private void ChaseTarget(bool canSeePlayer)
+    {
+        if (canSeePlayer)
+            _lastKnownPlayerPosition = player.position;
+
+        _agent.SetDestination(_lastKnownPlayerPosition);
+    }
+
+    /// <summary>Counts how long the player has been out of sight, then returns to patrol.</summary>
+    private void UpdateLostPlayerTimer(bool canSeePlayer)
+    {
+        if (canSeePlayer)
         {
-            // when we've lost sight, invoke the 'player lost' event
-
-            _timeSinceLostPlayer += Time.deltaTime;
-            onPlayerLoss.Invoke();
-            LogHandler.Log("I LOST THE PLAYER!");
-
-            if (_timeSinceLostPlayer >= losePlayerTime)
-            {
-                ChangeState(EnemyState.Patrolling);
-                
-            }
+            _timeSinceLostPlayer = 0f;
+            return;
         }
+
+        _timeSinceLostPlayer += Time.deltaTime;
+
+        if (_timeSinceLostPlayer >= losePlayerTime)
+            ChangeState(EnemyState.Patrolling);
     }
 
     private bool CanSeePlayer()
@@ -201,11 +233,6 @@ public class EnemyBehaviour : MonoBehaviour
         }
 
         return false;
-    }
-
-    public void PlayerDetection()
-    {
-
     }
 
     // Visual Gizmos for easy Scene Debugging

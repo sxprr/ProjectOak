@@ -62,6 +62,8 @@ namespace GlobalAndPersistent
         {
             controller = GetComponent<CharacterController>();
 
+            currentStamina = maxStamina;
+
             if (cursorLock)
             {
                 Cursor.lockState = CursorLockMode.Locked;

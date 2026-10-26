@@ -24,6 +24,8 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private int totalQuota = 10;
     [SerializeField] private int currentItems = 0;
     [SerializeField] private float maxDetection = 1f;
+    [SerializeField] private float circleScaleRate = 0.0140f;
+
 
     private Vector3 minCircleScale = new Vector3(2f, 2f, 2f);
     private Vector3 maxCircleScale = new Vector3(16f, 16f, 16f);
@@ -78,6 +80,7 @@ public class PlayerHUD : MonoBehaviour
         }
     }
 
+    // Listening to "OnPlayerSight" event from EnemyBehaviour.cs
     public void UpdateDetection(float detectionAmount)
     {
         // Don't update detection UI if the game is paused
@@ -87,22 +90,27 @@ public class PlayerHUD : MonoBehaviour
         // TODO: More logic is being handled than necessary. Migrate logic back to EnemyBehaviour.cs
         if (detectionUI != null)
         {
-            //this circle detection needs to pause when the enemy loses contact.
-            float circleDetectionAmount = 0.0140f;
-
+            // detection UI is the scrollbar. detectionCircle is the red circle that gets more prominent over time
             detectionUI.size = Mathf.Clamp01(detectionUI.size + detectionAmount);
-            detectionCircle.rectTransform.localScale -= new Vector3(circleDetectionAmount, circleDetectionAmount, 0f);
-            
-            
+            detectionCircle.rectTransform.localScale -= new Vector3(circleScaleRate, circleScaleRate, 0f);
+
+
+            // when the bar fills up:
             if (detectionUI.size >= maxDetection)
             {
-                LogHandler.Log($"Detection number has reached {detectionUI.size}, Game Over!");
-                GameManager.Instance.TriggerGameOver();
-
-                // The logic is that when we die, the screen will have red detection circle.
                 // Similar to many fps games where you take damage and you see a red outline
                 detectionCircle.rectTransform.localScale = minCircleScale;
             }
+        }
+    }
+    // This point of this is to "discharge" the detection amount over time.
+    // Listening to onPlayerLoss event from EnemyBehaviour.cs
+    public void SubtractDetection(float detectionAmount)
+    {
+
+        if (detectionUI != null)
+        {
+            detectionUI.size -= Mathf.Clamp01(detectionUI.size - detectionAmount * Time.deltaTime);
         }
     }
 
@@ -120,15 +128,6 @@ public class PlayerHUD : MonoBehaviour
         if(senseUI != null)
         {
             senseUI.size = Mathf.Clamp01(currentSense / maxSense);
-        }
-    }
-
-    // This point of this is to "discharge" the detection amount over time.
-    public void SubtractDetection(float detectionAmount)
-    {
-        if (detectionUI != null)
-        {
-            detectionUI.size = Mathf.Clamp01(detectionUI.size - detectionAmount);
         }
     }
 
