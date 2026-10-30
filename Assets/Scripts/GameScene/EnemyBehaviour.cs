@@ -17,6 +17,7 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private Transform[] patrolPoints;
     [SerializeField] private Transform player;
     [SerializeField] private LayerMask obstacleMask; // Add layer mask to ignore non-blocking colliders
+    [SerializeField] private PlayerHUD playerHUD;
 
     [Header("Enemy Settings")]
     [SerializeField] private float patrolWaitTime = 2f;
@@ -32,6 +33,12 @@ public class EnemyBehaviour : MonoBehaviour
     [Header("Player Detection Settings")]
     [SerializeField] private float playerDetectionRate = 0.01f;
     [SerializeField] private float playerDetectionDischargeRate = 0.01f; // new: tune separately from fill rate
+    [SerializeField] private float circleRateXY = 0.0140f;
+    [SerializeField] private float currentCircleXY = 16f;
+    [SerializeField] private float minCircleXY = 2f;
+    [SerializeField] private float maxCircleXY = 16f;
+
+
     private float maxPlayerDetection = 1f;
     private float currentPlayerDetection;
     private bool isDetectionDischarging;
@@ -173,13 +180,17 @@ public class EnemyBehaviour : MonoBehaviour
     private void UpdateDetectionMeter(bool canSeePlayer)
     {
         float rate = canSeePlayer ? playerDetectionRate : -playerDetectionDischargeRate;
+        float circlerate = canSeePlayer ? circleRateXY : -playerDetectionDischargeRate;
 
         currentPlayerDetection = Mathf.Clamp(
-            currentPlayerDetection + rate * Time.deltaTime,
+            currentPlayerDetection + (rate / circlerate)  * Time.deltaTime,
             0f,
             maxPlayerDetection);
 
-        isDetectionDischarging = !canSeePlayer && currentPlayerDetection > 0f;
+        isDetectionDischarging = !canSeePlayer && currentPlayerDetection > 0f && !canSeePlayer && currentCircleXY > 2f;
+
+        // update the User Interface
+        playerHUD.UpdateDetectionUI(currentPlayerDetection, maxPlayerDetection, minCircleXY, currentCircleXY, maxCircleXY);
     }
 
     private bool HasDetectedPlayer() => currentPlayerDetection >= maxPlayerDetection;

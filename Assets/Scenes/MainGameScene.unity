@@ -21455,6 +21455,7 @@ MonoBehaviour:
   obstacleMask:
     serializedVersion: 2
     m_Bits: 0
+  playerHUD: {fileID: 1853413609}
   patrolWaitTime: 2
   minPatrolWaitTime: 0.2
   stopAtDistance: 0.5
@@ -21465,36 +21466,7 @@ MonoBehaviour:
   viewAngle: 120
   enemyMoveSpeed: 2
   playerDetectionRate: 0.1
-  onPlayerSight:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1853413609}
-        m_TargetAssemblyTypeName: PlayerHUD, Assembly-CSharp
-        m_MethodName: UpdateDetection
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0.001
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onPlayerLoss:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1853413609}
-        m_TargetAssemblyTypeName: PlayerHUD, Assembly-CSharp
-        m_MethodName: SubtractDetection
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0.001
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  playerDetectionDischargeRate: 0.9
 --- !u!1001 &1045220288438603767
 PrefabInstance:
   m_ObjectHideFlags: 0

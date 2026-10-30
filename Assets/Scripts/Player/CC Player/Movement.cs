@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -95,6 +96,9 @@ namespace GlobalAndPersistent
         // Grab mouse Input axis to move the camera
         void UpdateMouseLook()
         {
+            //If the game is paused, exit mouse movement functionality.
+            if (GameManager.Instance.IsPaused) return;
+
             Vector2 targetMouseDelta = new Vector2(
             Input.GetAxis("Mouse X"),
             Input.GetAxis("Mouse Y")

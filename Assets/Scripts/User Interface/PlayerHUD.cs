@@ -24,11 +24,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private int totalQuota = 10;
     [SerializeField] private int currentItems = 0;
     [SerializeField] private float maxDetection = 1f;
-    [SerializeField] private float circleScaleRate = 0.0140f;
-
-
-    private Vector3 minCircleScale = new Vector3(2f, 2f, 2f);
-    private Vector3 maxCircleScale = new Vector3(16f, 16f, 16f);
+   
 
     private void Start()
     {
@@ -52,7 +48,7 @@ public class PlayerHUD : MonoBehaviour
         if (detectionCircle != null)
         {
 
-            detectionCircle.rectTransform.localScale = maxCircleScale;
+            detectionCircle.rectTransform.localScale = new Vector3(16f,16f,0f);
 
         }
 
@@ -80,8 +76,8 @@ public class PlayerHUD : MonoBehaviour
         }
     }
 
-    // Listening to "OnPlayerSight" event from EnemyBehaviour.cs
-    public void UpdateDetection(float detectionAmount)
+    
+    public void UpdateDetectionUI(float currentDetection, float maxDetection)
     {
         // Don't update detection UI if the game is paused
         if (GameManager.Instance.IsPaused)
@@ -90,27 +86,32 @@ public class PlayerHUD : MonoBehaviour
         // TODO: More logic is being handled than necessary. Migrate logic back to EnemyBehaviour.cs
         if (detectionUI != null)
         {
-            // detection UI is the scrollbar. detectionCircle is the red circle that gets more prominent over time
-            detectionUI.size = Mathf.Clamp01(detectionUI.size + detectionAmount);
-            detectionCircle.rectTransform.localScale -= new Vector3(circleScaleRate, circleScaleRate, 0f);
+            //scrollbar
+            detectionUI.size = Mathf.Clamp01(currentDetection / maxDetection);
 
-
-            // when the bar fills up:
-            if (detectionUI.size >= maxDetection)
-            {
-                // Similar to many fps games where you take damage and you see a red outline
-                detectionCircle.rectTransform.localScale = minCircleScale;
-            }
         }
-    }
-    // This point of this is to "discharge" the detection amount over time.
-    // Listening to onPlayerLoss event from EnemyBehaviour.cs
-    public void SubtractDetection(float detectionAmount)
-    {
+    } 
 
+    // overload method
+    public void UpdateDetectionUI(float currentDetection, float maxDetection, float minCircleXY,  float currentCircleXY, float maxCircleXY)
+    {
+        // Don't update detection UI if the game is paused
+        if (GameManager.Instance.IsPaused)
+            return;
+
+        Vector3 currentVector = new Vector3(currentCircleXY, currentCircleXY, 0f);
+
+        // TODO: More logic is being handled than necessary. Migrate logic back to EnemyBehaviour.cs
         if (detectionUI != null)
         {
-            detectionUI.size -= Mathf.Clamp01(detectionUI.size - detectionAmount * Time.deltaTime);
+            //scrollbar
+            detectionUI.size = Mathf.Clamp01(currentDetection / maxDetection);
+
+            //circle image 
+            detectionCircle.rectTransform.localScale = currentVector;
+
+            LogHandler.Log($"Max Circle Vector: {maxCircleXY} | current Circle Vector {currentCircleXY} | Min circle Vector : {minCircleXY}");
+
         }
     }
 
