@@ -183,7 +183,7 @@ public class EnemyBehaviour : MonoBehaviour
         float circlerate = canSeePlayer ? circleRateXY : -playerDetectionDischargeRate;
 
         currentPlayerDetection = Mathf.Clamp(
-            currentPlayerDetection + (rate / circlerate)  * Time.deltaTime,
+            currentPlayerDetection + (rate)  * Time.deltaTime,
             0f,
             maxPlayerDetection);
 

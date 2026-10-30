@@ -1,4 +1,4 @@
-using Cinemachine;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,13 +30,13 @@ public class CameraShakeManager : MonoBehaviour
 
     }
 
-    public void StartContinuousShake(CinemachineImpulseSource impulseSource)
+    public void StartContinuousShake(Unity.Cinemachine.CinemachineImpulseSource impulseSource)
     {
         // Instead of a for loop, we start a Coroutine
         StartCoroutine(ShakeOverTime(impulseSource, 5.0f)); // Shake for 5 seconds
     }
 
-    IEnumerator ShakeOverTime(CinemachineImpulseSource impulseSource, float duration)
+    IEnumerator ShakeOverTime(Unity.Cinemachine.CinemachineImpulseSource impulseSource, float duration)
     {
         float elapsed = 0f;
 
