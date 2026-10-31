@@ -126,6 +126,7 @@ namespace GlobalAndPersistent
         // player movement
         void MovePlayer()
         {
+           
             isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
 
             Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -138,6 +139,9 @@ namespace GlobalAndPersistent
             velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * speed + Vector3.up * velocityY;
 
             controller.Move(velocity * Time.deltaTime);
+
+            LogHandler.Log(velocity);
+            Debug.Log(velocity);
 
             Jump();
 
@@ -162,8 +166,8 @@ namespace GlobalAndPersistent
             // debug to check if the input is actually being detected.
             if (shiftHeld)
             {
-                LogHandler.Log($"Shift: {shiftHeld} Moving: {isMoving} (x: {moveX}, z: {moveZ}) " +
-                               $"Exhausted: {isExhausted} Stamina: {currentStamina}/{maxStamina} Sprinting: {isSprinting}");
+                LogHandler.Log($"Shift: {shiftHeld} | Moving: {isMoving} | (x: {moveX}, z: {moveZ}) " +
+                               $"Exhausted: {isExhausted} | Stamina: {currentStamina}/{maxStamina} |  Sprinting: {isSprinting}");
             }
 
             if (isSprinting)

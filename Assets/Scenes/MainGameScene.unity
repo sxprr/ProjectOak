@@ -15616,11 +15616,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4481271367398101503, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
       propertyPath: speed
-      value: 6
+      value: 29.47
       objectReference: {fileID: 0}
     - target: {fileID: 4481271367398101503, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
       propertyPath: Jumping
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4481271367398101503, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
       propertyPath: playerHUD
@@ -18761,6 +18761,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 794863692499896796, guid: 1b71e45370248d043b892c85e2ac0035, type: 3}
+      propertyPath: m_Speed
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3802359345152183656, guid: 1b71e45370248d043b892c85e2ac0035, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -19350,6 +19354,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3785863488859649261, guid: a840aac9b3418f24a934d255f2a3ad43, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
+    - target: {fileID: 4143737699009478216, guid: a840aac9b3418f24a934d255f2a3ad43, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 4398357056685459472, guid: a840aac9b3418f24a934d255f2a3ad43, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 3
@@ -19386,6 +19398,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5449955328450443104, guid: a840aac9b3418f24a934d255f2a3ad43, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
+      objectReference: {fileID: 0}
     - target: {fileID: 5490218999188077782, guid: a840aac9b3418f24a934d255f2a3ad43, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -19409,6 +19425,10 @@ PrefabInstance:
     - target: {fileID: 7222114951706197822, guid: a840aac9b3418f24a934d255f2a3ad43, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7364267265199786585, guid: a840aac9b3418f24a934d255f2a3ad43, type: 3}
+      propertyPath: 'm_ActiveFontFeatures.Array.data[0]'
+      value: 1801810542
       objectReference: {fileID: 0}
     - target: {fileID: 7552492839000071104, guid: a840aac9b3418f24a934d255f2a3ad43, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
