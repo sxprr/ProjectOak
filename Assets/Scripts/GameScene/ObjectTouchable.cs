@@ -41,6 +41,7 @@ public class ObjectTouchable : MonoBehaviour
 
     public void Vanish()
     {
+        SoundManager.Instance.PlayPickupJingle();
         gameObject.SetActive(false);
         onVanish.Invoke();
     }

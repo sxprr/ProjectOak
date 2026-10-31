@@ -141,7 +141,7 @@ namespace GlobalAndPersistent
             controller.Move(velocity * Time.deltaTime);
 
             LogHandler.Log(velocity);
-            Debug.Log(velocity);
+            
 
             Jump();
 
@@ -217,6 +217,7 @@ namespace GlobalAndPersistent
                 try { onSense.Invoke(); }
                 catch (System.Exception e) { Debug.LogException(e); }
                 LogHandler.Log("Sense ability activated! Discharging...");
+                SoundManager.Instance.PlayerSenseAbilityJingle();
             }
 
             // 2. State: Currently discharging smoothly down to zero
