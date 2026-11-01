@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
@@ -13,7 +10,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioSource sfxSource;
     [SerializeField] private AudioSource jingleSource;          // Dedicated source for UI/Win/Loss jingles
 
-    [Header("Audio Clips (8 Tracks Total)")]
+    [Header("Audio Clips")]
     [SerializeField] private AudioClip menuAmbientMusic;       // 1. Main Menu ambient
     [SerializeField] private AudioClip gameAmbientTrack1;      // 2. Game Scene ambient track A
     [SerializeField] private AudioClip gameAmbientTrack2;      // 3. Game Scene ambient track B (concurrent)
@@ -21,8 +18,11 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip pickupJingle;           // 5. Pick up jingle
     [SerializeField] private AudioClip finishLineJingle;       // 6. Finish Line victory jingle
     [SerializeField] private AudioClip gameOverJingle;         // 7. Game Over death jingle
-    [SerializeField] private AudioClip detectionJingle;        // 8. Enemy detection jingle
-    [SerializeField] private AudioClip senseAbilityJingle;
+    [SerializeField] private AudioClip enemyDetectJingle;      // 8. Enemy detection jingle
+    [SerializeField] private AudioClip senseAbilityJingle;     // 9. Sense Ability
+    [SerializeField] private AudioClip enemyPatrolJingle;      // 10. Enemy Patrol Jingle
+
+
 
     private void Awake()
     {
@@ -92,7 +92,7 @@ public class SoundManager : MonoBehaviour
     public void PlayPickupJingle() => PlayJingle(pickupJingle);
     public void PlayFinishLineJingle() => PlayJingle(finishLineJingle);
     public void PlayGameOverJingle() => PlayJingle(gameOverJingle);
-    public void PlayDetectionJingle() => PlayJingle(detectionJingle);
+    public void PlayDetectionJingle() => PlayJingle(enemyDetectJingle);
 
     public void PlayerSenseAbilityJingle() => PlayJingle(senseAbilityJingle);
 
@@ -101,6 +101,8 @@ public class SoundManager : MonoBehaviour
         if (jingleSource != null && clip != null)
         {
             jingleSource.PlayOneShot(clip);
+
+            LogHandler.Log($"The clip '{clip}' has been played");
         }
     }
 }

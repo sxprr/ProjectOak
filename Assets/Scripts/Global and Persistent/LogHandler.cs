@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using UnityEngine;
@@ -11,7 +9,7 @@ public static class LogHandler
         var hue = (uint)name.GetHashCode() / (float)uint.MaxValue;
         var color = Color.HSVToRGB(hue, 0.6f, 1f);
         return ColorUtility.ToHtmlStringRGB(color);
-    } 
+    }
 
     // Overrides any normal debug.log with "LogHandler.Log" (switch 'debug' with 'LogHandler')
     public static void Log(object message, [CallerFilePath] string file = "")

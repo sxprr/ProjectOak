@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Build.Pipeline;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -10,8 +7,8 @@ namespace GlobalAndPersistent
     {
         [Header("Control Values")]
         [SerializeField] Transform playerCamera;
-        [SerializeField] [Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
-        [SerializeField] [Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
+        [SerializeField][Range(0.0f, 0.5f)] float mouseSmoothTime = 0.03f;
+        [SerializeField][Range(0.0f, 0.5f)] float moveSmoothTime = 0.3f;
         [SerializeField] private float gravity = -30f;
         [SerializeField] public Transform groundCheck;
         [SerializeField] private LayerMask ground;
@@ -25,7 +22,7 @@ namespace GlobalAndPersistent
         float velocityY;
         bool isGrounded;
         bool isSprinting;
-        
+
 
         float cameraCap;
         Vector2 currentMouseDelta;
@@ -78,7 +75,7 @@ namespace GlobalAndPersistent
             UpdateMouseLook();
             TriggerSenseAbility();
 
-            if(playerHUD != null)
+            if (playerHUD != null)
             {
                 playerHUD.UpdateSenseDisplay(currentCharge, maxCharge);
                 playerHUD.UpdateStaminaDisplay(currentStamina, maxStamina);
@@ -126,7 +123,7 @@ namespace GlobalAndPersistent
         // player movement
         void MovePlayer()
         {
-           
+
             isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
 
             Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
@@ -140,8 +137,6 @@ namespace GlobalAndPersistent
 
             controller.Move(velocity * Time.deltaTime);
 
-            LogHandler.Log(velocity);
-            
 
             Jump();
 
@@ -209,7 +204,7 @@ namespace GlobalAndPersistent
             bool qPressed = Input.GetKeyDown(KeyCode.Q);
 
             if (qPressed) LogHandler.Log($"Q pressed. charge={currentCharge}, max={maxCharge}, discharging={isDischarging}");
-       
+
             //Temporarliy removed conditions for testing, as well as onSense
             if (qPressed && currentCharge >= maxCharge && !isDischarging)
             {
@@ -230,7 +225,7 @@ namespace GlobalAndPersistent
                 {
                     currentCharge = 0f;
                     isDischarging = false;
-                    
+
                     Debug.Log("Fully discharged. Starting recharge.");
                 }
             }
@@ -239,14 +234,14 @@ namespace GlobalAndPersistent
             {
                 currentCharge += senseRegenRate * Time.deltaTime;
                 currentCharge = Mathf.Min(currentCharge, maxCharge);
-                
+
             }
         }
 
         // can now be toggled on and off in the inspector
         void Jump()
         {
-            if(Jumping)
+            if (Jumping)
             {
                 if (isGrounded && Input.GetButtonDown("Jump"))
                 {

@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -63,14 +59,14 @@ public class PlayerController : MonoBehaviour
 
 
     }
-        
+
     private void FixedUpdate()
     {
         HandleRBLook();
         MovePlayer();
     }
 
-    
+
     private void HandleLook()
     {
         //mouse input capture
@@ -96,7 +92,7 @@ public class PlayerController : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(0f, yRotation, 0f);
             rb.MoveRotation(targetRotation);
         }
-        
+
     }
 
     private void ManageStamina()
@@ -149,7 +145,7 @@ public class PlayerController : MonoBehaviour
         Vector3 targetPosition = rb.position + moveDirection * currentSpeed * Time.fixedDeltaTime;
 
         rb.MovePosition(targetPosition);
-        
+
 
     }
 

@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class MenuFunctionality : MonoBehaviour
@@ -8,11 +7,11 @@ public class MenuFunctionality : MonoBehaviour
     [Header("Transition Settings")]
     [SerializeField] private Animator transitionAnimator;
     [SerializeField] private float sceneTransitionTime = 1f;
-  
+
 
     private void Awake()
     {
-  
+
     }
 
 
@@ -20,6 +19,7 @@ public class MenuFunctionality : MonoBehaviour
     {
         Time.timeScale = 1f;
         StartCoroutine(LoadLevelRoutine(1));
+        SoundManager.Instance.PlayGameMusicConcurrently();
     }
 
     public void LoadMenu()
@@ -29,7 +29,8 @@ public class MenuFunctionality : MonoBehaviour
         if (MenuCoordinator.Instance != null)
         {
             MenuCoordinator.Instance.LoadMenu();
-            
+            SoundManager.Instance.PlayMenuMusic();
+
         }
         else
         {

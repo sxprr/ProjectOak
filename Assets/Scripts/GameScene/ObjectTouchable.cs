@@ -1,6 +1,4 @@
 using GlobalAndPersistent;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -15,7 +13,7 @@ public class ObjectTouchable : MonoBehaviour
     [SerializeField] private float floatHeight = 0.25f;
 
     [SerializeField] private Movement player;
-    
+
     private ParticleSystem senseParticles;
     private Vector3 startPosition;
 

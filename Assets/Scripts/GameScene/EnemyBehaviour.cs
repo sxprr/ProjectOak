@@ -1,10 +1,7 @@
 
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Events;
 
 public enum EnemyState
 {
@@ -184,7 +181,7 @@ public class EnemyBehaviour : MonoBehaviour
         float circlerate = canSeePlayer ? circleRateXY : -playerDetectionDischargeRate;
 
         currentPlayerDetection = Mathf.Clamp(
-            currentPlayerDetection + (rate)  * Time.deltaTime,
+            currentPlayerDetection + (rate) * Time.deltaTime,
             0f,
             maxPlayerDetection);
 

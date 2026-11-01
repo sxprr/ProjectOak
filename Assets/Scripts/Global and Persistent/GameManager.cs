@@ -1,8 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -32,11 +29,11 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // IF WERE IN THE MAIN MENU JUST TURN IT ON, THANKS.
-        if(SceneManager.GetActiveScene() ==  SceneManager.GetSceneByBuildIndex(0))
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(0))
         {
             LogHandler.Log($"This is the Main Menu Scene, indexed at {0}");
         }
-     
+
     }
 
 

@@ -1,5 +1,3 @@
-
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -32,7 +30,7 @@ public class ItemManager : MonoBehaviour
 
     private void Update()
     {
-        
+
     }
 
     private void Start()
@@ -56,6 +54,10 @@ public class ItemManager : MonoBehaviour
             {
                 LogHandler.Log("The Finish Line has been activated!");
                 onQoutaFull.Invoke();
+
+                SoundManager.Instance.PlayFinishLineJingle();
+
+
             }
         }
     }

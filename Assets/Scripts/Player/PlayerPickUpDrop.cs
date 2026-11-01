@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -66,7 +64,7 @@ public class PlayerPickUpDrop : MonoBehaviour
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
         // I think there is an issue with the direction(Vector3)
-        bool hasHit = Physics.Raycast(ray,out RaycastHit raycastHit, pickUpDistance, pickUpMask);
+        bool hasHit = Physics.Raycast(ray, out RaycastHit raycastHit, pickUpDistance, pickUpMask);
 
         // Debug ray now matches the actual raycast
         Color rayColor = hasHit ? Color.green : Color.red;

@@ -1,8 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
-using UnityEngine.Events;
-using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
 public class PlayerHUD : MonoBehaviour
@@ -19,12 +17,12 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private TextMeshProUGUI itemText;
     [SerializeField] private TextMeshProUGUI promptText;       // Optional: To dynamically set text
     [SerializeField] private GameObject playerCrosshair;
-    
+
     [Header("Values")]
     [SerializeField] private int totalQuota = 10;
     [SerializeField] private int currentItems = 0;
     [SerializeField] private float maxDetection = 1f;
-   
+
 
     private void Start()
     {
@@ -48,7 +46,7 @@ public class PlayerHUD : MonoBehaviour
         if (detectionCircle != null)
         {
 
-            detectionCircle.rectTransform.localScale = new Vector3(16f,16f,0f);
+            detectionCircle.rectTransform.localScale = new Vector3(16f, 16f, 0f);
 
         }
 
@@ -76,7 +74,7 @@ public class PlayerHUD : MonoBehaviour
         }
     }
 
-    
+
     public void UpdateDetectionUI(float currentDetection, float maxDetection)
     {
         // Don't update detection UI if the game is paused
@@ -90,10 +88,10 @@ public class PlayerHUD : MonoBehaviour
             detectionUI.size = Mathf.Clamp01(currentDetection / maxDetection);
 
         }
-    } 
+    }
 
     // overload method
-    public void UpdateDetectionUI(float currentDetection, float maxDetection, float minCircleXY,  float currentCircleXY, float maxCircleXY)
+    public void UpdateDetectionUI(float currentDetection, float maxDetection, float minCircleXY, float currentCircleXY, float maxCircleXY)
     {
         // Don't update detection UI if the game is paused
         if (GameManager.Instance.IsPaused)
@@ -126,7 +124,7 @@ public class PlayerHUD : MonoBehaviour
 
     public void UpdateSenseDisplay(float currentSense, float maxSense)
     {
-        if(senseUI != null)
+        if (senseUI != null)
         {
             senseUI.size = Mathf.Clamp01(currentSense / maxSense);
         }

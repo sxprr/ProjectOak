@@ -1,11 +1,10 @@
 
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraShakeManager : MonoBehaviour
 {
-    
+
     public static CameraShakeManager instance;
 
     [SerializeField] private float globalShakerForce = 1f;
