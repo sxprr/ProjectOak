@@ -120,32 +120,6 @@ namespace GlobalAndPersistent
             );
         }
 
-        // player movement
-        void MovePlayer()
-        {
-
-            isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
-
-            Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            targetDir.Normalize();
-
-            currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
-
-            velocityY += gravity * 2f * Time.deltaTime;
-
-            velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * speed + Vector3.up * velocityY;
-
-            controller.Move(velocity * Time.deltaTime);
-
-
-            Jump();
-
-            if (isGrounded! && controller.velocity.y < -1f)
-            {
-                velocityY = -8f;
-            }
-
-        }
 
         private void ManageStamina()
         {
@@ -198,6 +172,34 @@ namespace GlobalAndPersistent
             }
         }
 
+        // player movement
+        void MovePlayer()
+        {
+
+            isGrounded = Physics.CheckSphere(groundCheck.position, 0.2f, ground);
+
+            Vector2 targetDir = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+            targetDir.Normalize();
+
+            currentDir = Vector2.SmoothDamp(currentDir, targetDir, ref currentDirVelocity, moveSmoothTime);
+
+            velocityY += gravity * 2f * Time.deltaTime;
+
+            float currentSpeed = isSprinting ? speed * sprintMultiplier : speed;
+
+            velocity = (transform.forward * currentDir.y + transform.right * currentDir.x) * currentSpeed + Vector3.up * velocityY;
+
+            controller.Move(velocity * Time.deltaTime);
+
+
+            Jump();
+
+            if (isGrounded! && controller.velocity.y < -1f)
+            {
+                velocityY = -8f;
+            }
+
+        }
         void TriggerSenseAbility()
         {
 

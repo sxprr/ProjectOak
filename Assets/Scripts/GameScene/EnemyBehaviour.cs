@@ -73,6 +73,16 @@ public class EnemyBehaviour : MonoBehaviour
                 if (CanSeePlayer())
                 {
                     LogHandler.Log("Player spotted!");
+                    if (SoundManager.Instance != null)
+                    {
+                        SoundManager.Instance.PlayEnemyDetectionJingle();
+                    }
+                    else if(SoundManager.Instance == null)
+                    {
+                        LogHandler.LogWarning("Instance is missing!");
+                    }
+
+
                     ChangeState(EnemyState.Detecting);
                 }
                 break;

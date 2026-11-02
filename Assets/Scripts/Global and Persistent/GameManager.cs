@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
         if (IsGameOver) return;
         IsGameOver = true;
         Time.timeScale = 0f;
+        SoundManager.Instance.PlayGameOverJingle();
         SetCursorState(visible: true, locked: false);
 
         OnGameOverTriggered?.Invoke();

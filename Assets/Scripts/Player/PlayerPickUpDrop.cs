@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -27,7 +28,7 @@ public class PlayerPickUpDrop : MonoBehaviour
         }
 
         if (playerHUD == null)
-            playerHUD = FindObjectOfType<PlayerHUD>();
+            playerHUD = FindAnyObjectByType<PlayerHUD>();
 
         LogHandler.Log($"Player Camera's rotation is currently {mainCamera.transform.rotation}");
 
@@ -119,6 +120,7 @@ public class PlayerPickUpDrop : MonoBehaviour
             playerHUD.ToggleInteractionPrompt(false);
         }
     }
+
 }
 
 

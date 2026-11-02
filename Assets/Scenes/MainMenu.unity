@@ -192,6 +192,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 5bfbb652e8a734eb0a68fcb972453274, type: 3}
     - target: {fileID: 566977373598630490, guid: 3daeaaa94e56110499dd96d5e52c11df, type: 3}
+      propertyPath: enemyDetectJingle
+      value: 
+      objectReference: {fileID: 8300000, guid: 84e427d6b66ab4066b6a4dcd0ce819ee, type: 3}
+    - target: {fileID: 566977373598630490, guid: 3daeaaa94e56110499dd96d5e52c11df, type: 3}
       propertyPath: gameAmbientTrack1
       value: 
       objectReference: {fileID: 8300000, guid: a53819cc521b1f24689b00c663d8fbb4, type: 3}

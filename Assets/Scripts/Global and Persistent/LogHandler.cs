@@ -23,4 +23,28 @@ public static class LogHandler
         //add this custom color coded tag to any debug log
         Debug.Log($"<color=#{color}><b>[{className}]</b></color> {message}");
     }
+
+    public static void LogWarning(object message, [CallerFilePath] string file = "")
+    {
+        // GET THE NAME OF THE CLASS THAT THE LOG IS BEING CALLED FROM.
+        var className = Path.GetFileNameWithoutExtension(file);
+
+        //assign determenistic color
+        var color = GetColor(className);
+
+        //add this custom color coded tag to any debug log
+        Debug.LogWarning($"<color=#{color}><b>[{className}]</b></color> {message}");
+    }
+
+    public static void LogError(object message, [CallerFilePath] string file = "")
+    {
+        // GET THE NAME OF THE CLASS THAT THE LOG IS BEING CALLED FROM.
+        var className = Path.GetFileNameWithoutExtension(file);
+
+        //assign determenistic color
+        var color = GetColor(className);
+
+        //add this custom color coded tag to any debug log
+        Debug.LogError($"<color=#{color}><b>[{className}]</b></color> {message}");
+    }
 }

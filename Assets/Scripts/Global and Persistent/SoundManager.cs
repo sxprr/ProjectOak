@@ -21,7 +21,7 @@ public class SoundManager : MonoBehaviour
     [SerializeField] private AudioClip enemyDetectJingle;      // 8. Enemy detection jingle
     [SerializeField] private AudioClip senseAbilityJingle;     // 9. Sense Ability
     [SerializeField] private AudioClip enemyPatrolJingle;      // 10. Enemy Patrol Jingle
-
+    [SerializeField] private AudioClip sprintStartJingle;      // 11. Sprint start Jingle
 
 
     private void Awake()
@@ -92,7 +92,7 @@ public class SoundManager : MonoBehaviour
     public void PlayPickupJingle() => PlayJingle(pickupJingle);
     public void PlayFinishLineJingle() => PlayJingle(finishLineJingle);
     public void PlayGameOverJingle() => PlayJingle(gameOverJingle);
-    public void PlayDetectionJingle() => PlayJingle(enemyDetectJingle);
+    public void PlayEnemyDetectionJingle() => PlayJingle(enemyDetectJingle);
 
     public void PlayerSenseAbilityJingle() => PlayJingle(senseAbilityJingle);
 
