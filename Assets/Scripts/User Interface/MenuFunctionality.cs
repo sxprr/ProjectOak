@@ -14,12 +14,19 @@ public class MenuFunctionality : MonoBehaviour
 
     }
 
+    private void Start()
+    {
+        
+    }
 
+    // This method listens to button clicks
     public void LoadMainGame()
     {
+        Debug.Log("LoadMainGame called");
+
         Time.timeScale = 1f;
         StartCoroutine(LoadLevelRoutine(1));
-        SoundManager.Instance.PlayGameMusicConcurrently();
+        
     }
 
     public void LoadMenu()

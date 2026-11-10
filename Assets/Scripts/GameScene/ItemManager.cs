@@ -50,12 +50,12 @@ public class ItemManager : MonoBehaviour
             LogHandler.Log($"Added '{objectTouchable.name}' to inventory | Item count: {itemCollect.Count}");
 
             // 3. Check the count AFTER adding
-            if (itemCollect.Count == requiredItems)
+            if (itemCollect.Count >= requiredItems)
             {
+                SoundManager.Instance.PlayFinishLineJingle();
                 LogHandler.Log("The Finish Line has been activated!");
                 onQoutaFull.Invoke();
 
-                SoundManager.Instance.PlayFinishLineJingle();
 
 
             }

@@ -16582,7 +16582,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4481271367398101503, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
       propertyPath: speed
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4481271367398101503, guid: 69427f1c51272cf42ae836d28c70b1de, type: 3}
       propertyPath: Jumping
@@ -20323,12 +20323,12 @@ MonoBehaviour:
   stopAtDistance: 0.5
   maxLostPlayerTime: 15
   losePlayerTime: 3
-  maxDetectionRange: 55.1
-  detectionRange: 76
+  maxDetectionRange: 130
+  detectionRange: 126.8
   viewAngle: 169.5
-  enemyMoveSpeed: 3
+  enemyMoveSpeed: 4
   playerDetectionRate: 0.1
-  playerDetectionDischargeRate: 0.9
+  playerDetectionDischargeRate: 0.1
   circleRateXY: 0.014
   currentCircleXY: 16
   minCircleXY: 2

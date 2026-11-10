@@ -30,7 +30,6 @@ public class PlayerPickUpDrop : MonoBehaviour
         if (playerHUD == null)
             playerHUD = FindAnyObjectByType<PlayerHUD>();
 
-        LogHandler.Log($"Player Camera's rotation is currently {mainCamera.transform.rotation}");
 
     }
 
@@ -39,8 +38,6 @@ public class PlayerPickUpDrop : MonoBehaviour
     // We will interact with objects by shooting a ray from the player camera
     void Update()
     {
-        CheckForInteractable();
-
         if (Input.GetKeyDown(KeyCode.E) && currentTarget != null)
         {
             LogHandler.Log($"CURRENTLY HOVERING OVER {currentTarget}");
@@ -51,6 +48,13 @@ public class PlayerPickUpDrop : MonoBehaviour
             currentTarget = null;
 
         }
+
+        
+    }
+
+    private void LateUpdate()
+    {
+        CheckForInteractable();
     }
 
     public void PickItems()
@@ -62,6 +66,7 @@ public class PlayerPickUpDrop : MonoBehaviour
         }
 
         // Shoot from camera center (0.5, 0.5 is screen center, not 0, 0)
+        // This ray seems to be causing jitters!
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
         // I think there is an issue with the direction(Vector3)
@@ -96,21 +101,35 @@ public class PlayerPickUpDrop : MonoBehaviour
 
     private void CheckForInteractable()
     {
+
+
         if (mainCamera == null) return;
 
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
         if (Physics.Raycast(ray, out RaycastHit hit, pickUpDistance, pickUpMask))
         {
+
+
             if (hit.transform.TryGetComponent(out ObjectTouchable touchable))
             {
+                /*
+                Debug.Log($"[{GetEntityId()}] target -> {(touchable ? touchable.name : "null")}" +
+                    $" (scene: {gameObject.scene.name}, cam: {mainCamera.name})", this);
+                */
                 if (currentTarget != touchable)
                 {
                     currentTarget = touchable;
                     playerHUD.ToggleInteractionPrompt(true, "Press E to Interact");
                 }
                 return;
+
+                
             }
+        }
+        else
+        {
+            
         }
 
         // Clear target and hide UI if ray hits nothing or non-interactable object
@@ -119,6 +138,17 @@ public class PlayerPickUpDrop : MonoBehaviour
             currentTarget = null;
             playerHUD.ToggleInteractionPrompt(false);
         }
+    }
+
+    private void OutputRayDebug()
+    {
+        Transform cam = mainCamera.transform;
+        Debug.Log(
+            $"f={Time.frameCount} dt={Time.deltaTime:F4} ts={Time.timeScale} " +
+            $"lock={Cursor.lockState} " +
+            $"mouse=({Input.GetAxisRaw("Mouse X"):F2},{Input.GetAxisRaw("Mouse Y"):F2}) " +
+            $"camPos={cam.position} camRot={cam.eulerAngles} " +
+            $"parentRot={(cam.parent ? cam.parent.eulerAngles.ToString() : "none")}");
     }
 
 }

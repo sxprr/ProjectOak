@@ -187,6 +187,7 @@ public class EnemyBehaviour : MonoBehaviour
     /// <summary>Fills the meter while the player is visible, drains it otherwise.</summary>
     private void UpdateDetectionMeter(bool canSeePlayer)
     {
+        // scrollbar rate and circle Image rate
         float rate = canSeePlayer ? playerDetectionRate : -playerDetectionDischargeRate;
         float circlerate = canSeePlayer ? circleRateXY : -playerDetectionDischargeRate;
 

@@ -66,6 +66,8 @@ public class PlayerHUD : MonoBehaviour
             interactionPrompt.SetActive(show);
             promptText.gameObject.SetActive(show);
             playerCrosshair.SetActive(!show);
+
+            Debug.Log($"Prompt {show}\n{System.Environment.StackTrace}", this);
         }
 
         if (promptText != null && show)

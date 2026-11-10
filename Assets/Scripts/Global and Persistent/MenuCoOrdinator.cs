@@ -25,6 +25,11 @@ public class MenuCoordinator : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        SoundManager.Instance.PlayMenuMusic();
+    }
+
     private void Update()
     {
         Instance = this;
@@ -36,6 +41,8 @@ public class MenuCoordinator : MonoBehaviour
 
         Time.timeScale = 1f;
         StartCoroutine(LoadLevelRoutine(1));
+
+        SoundManager.Instance.PlayGameMusicConcurrently();
 
     }
 

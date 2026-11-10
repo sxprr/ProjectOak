@@ -28,6 +28,8 @@ public class SoundManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
+            LogHandler.Log("Awake nullcheck ");
+
             Destroy(gameObject);
             return;
         }
@@ -43,19 +45,42 @@ public class SoundManager : MonoBehaviour
         // Stop secondary source if active from gameplay
         if (musicSourceSecondary.isPlaying) musicSourceSecondary.Stop();
 
+        LogHandler.Log($"'{musicSourceSecondary.name}' has been stopped due to Menu transition. Currently playing " +
+            $"'{menuAmbientMusic.name}', assigned to '{musicSourcePrimary.name}'");
+
         PlayMusic(musicSourcePrimary, menuAmbientMusic, loop: true);
     }
 
+    //there's a silent error?
     public void PlayGameMusicConcurrently()
     {
+        Debug.Log("PlayGameMusicConcurrently entered");
+
+
         // Plays both game ambient tracks together concurrently
         PlayMusic(musicSourcePrimary, gameAmbientTrack1, loop: true);
         PlayMusic(musicSourceSecondary, gameAmbientTrack2, loop: true);
+
+        //doesn't appear in the console.
+        Debug.Log($"'{musicSourceSecondary.name}' has started due to MainGame.. Currently playing " +
+            $"'{gameAmbientTrack1}', assigned to '{musicSourcePrimary.name}'");
+
+
     }
 
     private void PlayMusic(AudioSource source, AudioClip clip, bool loop)
     {
-        if (source == null || clip == null) return;
+        if (source == null)
+        {
+            Debug.LogWarning("PlayMusic: AudioSource is missing or destroyed", this);
+            return;
+        }
+
+        if (clip == null)
+        {
+            Debug.LogWarning($"PlayMusic: clip not assigned for source '{source.name}'", this);
+            return;
+        }
 
         if (source.clip == clip && source.isPlaying) return;
 
@@ -98,12 +123,12 @@ public class SoundManager : MonoBehaviour
 
     private void PlayJingle(AudioClip clip)
     {
-        if (jingleSource != null && clip != null)
-        {
-            jingleSource.PlayOneShot(clip);
+        if (clip == null) { Debug.LogWarning("PlayJingle: clip is null", this); return; }
+        if (jingleSource == null) { Debug.LogWarning("PlayJingle: jingleSource is missing/destroyed", this); return; }
+        if (!jingleSource.isActiveAndEnabled) { Debug.LogWarning("PlayJingle: jingleSource is disabled", this); return; }
 
-            LogHandler.Log($"The clip '{clip}' has been played");
-        }
+        jingleSource.PlayOneShot(clip);
+        LogHandler.Log($"Played jingle '{clip.name}'");
     }
 }
 
