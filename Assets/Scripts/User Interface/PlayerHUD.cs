@@ -11,7 +11,7 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private Scrollbar senseUI;
     [SerializeField] private GameObject interactionPrompt; // Assign "Press E" UI panel/text here
     [SerializeField] private Image itemIcon;
-    [SerializeField] private RawImage detectionCircle;
+    
 
     [Header("Text References")]
     [SerializeField] private TextMeshProUGUI itemText;
@@ -23,6 +23,11 @@ public class PlayerHUD : MonoBehaviour
     [SerializeField] private int currentItems = 0;
     [SerializeField] private float maxDetection = 1f;
 
+    [Header("Circle Values")]
+    [SerializeField] private RectTransform detectionCircle;
+    [SerializeField] private CanvasGroup detectionCircleGroup; // on the circle Image
+    [SerializeField] private float minCircleScale = 2f;
+    [SerializeField] private float maxCircleScale = 16f;
 
     private void Start()
     {
@@ -46,7 +51,7 @@ public class PlayerHUD : MonoBehaviour
         if (detectionCircle != null)
         {
 
-            detectionCircle.rectTransform.localScale = new Vector3(16f, 16f, 0f);
+            detectionCircle.localScale = new Vector3(16f, 16f, 0f);
 
         }
 
@@ -79,6 +84,8 @@ public class PlayerHUD : MonoBehaviour
 
     public void UpdateDetectionUI(float currentDetection, float maxDetection)
     {
+        float t = Mathf.Clamp01(currentDetection / maxDetection);
+
         // Don't update detection UI if the game is paused
         if (GameManager.Instance.IsPaused)
             return;
@@ -89,28 +96,10 @@ public class PlayerHUD : MonoBehaviour
             //scrollbar
             detectionUI.size = Mathf.Clamp01(currentDetection / maxDetection);
 
-        }
-    }
-
-    // overload method
-    public void UpdateDetectionUI(float currentDetection, float maxDetection, float minCircleXY, float currentCircleXY, float maxCircleXY)
-    {
-        // Don't update detection UI if the game is paused
-        if (GameManager.Instance.IsPaused)
-            return;
-
-        Vector3 currentVector = new Vector3(currentCircleXY, currentCircleXY, 0f);
-
-        // TODO: More logic is being handled than necessary. Migrate logic back to EnemyBehaviour.cs
-        if (detectionUI != null)
-        {
-            //scrollbar
-            detectionUI.size = Mathf.Clamp01(currentDetection / maxDetection);
-
-            //circle image 
-            detectionCircle.rectTransform.localScale = currentVector;
-
-            LogHandler.Log($"Max Circle Vector: {maxCircleXY} | current Circle Vector {currentCircleXY} | Min circle Vector : {minCircleXY}");
+            //circle
+            float scale = Mathf.Lerp(maxCircleScale, minCircleScale, t); // big -> small as t rises
+            detectionCircle.localScale = new Vector3(scale, scale, 1f);
+            detectionCircleGroup.alpha = t;                              // faint -> opaque as t rises
 
         }
     }

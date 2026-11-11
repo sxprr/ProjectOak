@@ -156,7 +156,7 @@ public class EnemyBehaviour : MonoBehaviour
         GoToNextPatrolPoint();
     }
 
-    //TODO: This method looks messy and poorly documented, ORGANISE IT!
+    
     private Vector3 _lastKnownPlayerPosition;
 
     /// <summary>
@@ -187,19 +187,22 @@ public class EnemyBehaviour : MonoBehaviour
     /// <summary>Fills the meter while the player is visible, drains it otherwise.</summary>
     private void UpdateDetectionMeter(bool canSeePlayer)
     {
-        // scrollbar rate and circle Image rate
         float rate = canSeePlayer ? playerDetectionRate : -playerDetectionDischargeRate;
-        float circlerate = canSeePlayer ? circleRateXY : -playerDetectionDischargeRate;
+
+        float circleRate = canSeePlayer ? -circleRateXY : circleRateXY; // shrink while seen, grow back when not
+        currentCircleXY = Mathf.Clamp(
+            currentCircleXY + circleRate * Time.deltaTime,
+            minCircleXY,
+            maxCircleXY);
 
         currentPlayerDetection = Mathf.Clamp(
-            currentPlayerDetection + (rate) * Time.deltaTime,
+            currentPlayerDetection + rate * Time.deltaTime,
             0f,
             maxPlayerDetection);
 
-        isDetectionDischarging = !canSeePlayer && currentPlayerDetection > 0f && !canSeePlayer && currentCircleXY > 2f;
+        isDetectionDischarging = !canSeePlayer && currentPlayerDetection > 0f;
 
-        // update the User Interface
-        playerHUD.UpdateDetectionUI(currentPlayerDetection, maxPlayerDetection, minCircleXY, currentCircleXY, maxCircleXY);
+        playerHUD.UpdateDetectionUI(currentPlayerDetection, maxPlayerDetection);
     }
 
     private bool HasDetectedPlayer() => currentPlayerDetection >= maxPlayerDetection;
