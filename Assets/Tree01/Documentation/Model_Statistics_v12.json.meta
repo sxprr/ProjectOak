@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 45327e8e9006e1d4d845bd16650c1da7
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192541
+  packageName: Tree 01 - Broadleaf Shade Trees
+  packageVersion: 1.1.0
+  assetPath: Assets/Tree01/Documentation/Model_Statistics_v12.json
+  uploadId: 1023460

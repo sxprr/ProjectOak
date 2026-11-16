@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 023f66ee9b0b66040850f39cfb634186
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 192541
+  packageName: Tree 01 - Broadleaf Shade Trees
+  packageVersion: 1.1.0
+  assetPath: Assets/Tree01/Materials/Tree_Bark_Standard_v12.mat
+  uploadId: 1023460
