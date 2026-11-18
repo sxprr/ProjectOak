@@ -62,7 +62,7 @@ public class ObjectTouchable : MonoBehaviour
 
     private void OnEnable()
     {
-        if (player == null) player = FindFirstObjectByType<Movement>();
+        if (player == null) player = FindAnyObjectByType<Movement>();
         if (player != null) player.onSense.AddListener(ItemFlash);
     }
 
