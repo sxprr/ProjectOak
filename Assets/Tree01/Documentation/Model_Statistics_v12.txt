@@ -1,6 +1,0 @@
-Tree 01 - Broadleaf Shade Trees — release 1.1.0 (candidate v12)
-Units: meters. LOD figures are counted from the Unity-imported FBX meshes.
-Young Upright: LOD0=77444, LOD1=26578 (65.7% reduction), LOD2=11900 (84.6% reduction).
-Mature Asymmetrical: LOD0=96802, LOD1=33050 (65.9% reduction), LOD2=16300 (83.2% reduction).
-Wind-Swept: LOD0=78398, LOD1=27340 (65.1% reduction), LOD2=13842 (82.3% reduction).
-All imported meshes are checked for UV0 and UV2 channel lengths, zero-area triangles, and metric bounds in the QA report.
