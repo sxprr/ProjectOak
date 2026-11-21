@@ -293,4 +293,13 @@ public class EnemyBehaviour : MonoBehaviour
         enemyMoveSpeed = (enemyMoveSpeed / agroMultiplier);
     }
 
+    // Kill the player if we literally touch
+    // Doesn't work?
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            GameManager.Instance.TriggerGameOver();
+        }
+    }
 }
