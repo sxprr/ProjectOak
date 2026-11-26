@@ -1331,6 +1331,10 @@ PrefabInstance:
       propertyPath: mainMenuPanel
       value: 
       objectReference: {fileID: 1222813542}
+    - target: {fileID: 1112270259983695766, guid: b8d6feb54100fb04c86fb3040fbf9c69, type: 3}
+      propertyPath: sceneTransitionTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1138954578833575358, guid: b8d6feb54100fb04c86fb3040fbf9c69, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 132

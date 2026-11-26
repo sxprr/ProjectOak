@@ -24,13 +24,35 @@ public class UIAnimationManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    // The MenCoOrdinator.LoadMainGame calls this method.
     public IEnumerator PlayFadeOut()
     {
+        if (transitionAnimator == null)
+            yield break;
+
+        transitionAnimator.ResetTrigger(FadeInHash);
         transitionAnimator.SetTrigger(FadeOutHash);
 
-        // Wait until theAnimator transitions to the fade out state and finishes playing
-        yield return null; // Frame delay for Animator state update
-        yield return new WaitForSeconds(transitionAnimator.GetCurrentAnimatorStateInfo(0).length);
+        // Wait until the Animator actually enters the target state
+        // Replace "EndStateName" with the exact state name in your Animator controller
+        yield return null;
+        while (!transitionAnimator.IsInTransition(0) &&
+               !transitionAnimator.GetCurrentAnimatorStateInfo(0).IsName("Crossfade_start"))
+        {
+            yield return null;
+        }
+
+        // Wait through any transition blend into the state
+        while (transitionAnimator.IsInTransition(0))
+        {
+            yield return null;
+        }
+
+        float clipLength = transitionAnimator.GetCurrentAnimatorStateInfo(0).length;
+        if (clipLength > 0f)
+        {
+            yield return new WaitForSecondsRealtime(clipLength);
+        }
     }
 
     public void PlayCrossFadeIn()
